@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yussuf Akram Ibrahim — Cloud Security Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f0c;
+    --bg-raised:#101713;
+    --bg-card:#0d1310;
+    --line:#1e2a22;
+    --text:#d9e3dc;
+    --text-dim:#7e9186;
+    --green:#3ddc84;
+    --green-dim:#2a9e5f;
+    --amber:#e0b04f;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    font-size:16px;
+  }
+  ::selection{background:var(--green-dim); color:#05130a;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit;}
+  .wrap{max-width:860px; margin:0 auto; padding:0 28px;}
+
+  /* background grid texture */
+  .bg-grid{
+    position:fixed; inset:0; z-index:-1;
+    background-image:
+      linear-gradient(rgba(61,220,132,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(61,220,132,0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 10%, transparent 75%);
+  }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,15,12,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px;}
+  .nav-id{font-family:'JetBrains Mono', monospace; font-weight:700; font-size:15px; color:var(--green);}
+  .nav-id .dim{color:var(--text-dim); font-weight:400;}
+  .nav-links{display:flex; gap:26px; list-style:none; font-size:14px;}
+  .nav-links a{color:var(--text-dim); text-decoration:none; transition:color .15s;}
+  .nav-links a:hover{color:var(--green);}
+  .cv-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--bg);
+    background:var(--green);
+    padding:8px 14px;
+    border-radius:3px;
+    text-decoration:none;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .cv-btn:hover{background:#59e79c;}
+  .nav-mobile-hide{display:flex; align-items:center; gap:26px;}
+
+  /* HERO */
+  header.hero{padding:96px 0 72px;}
+  .terminal{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 30px 80px -30px rgba(0,0,0,0.6);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 16px;
+    background:var(--bg-raised);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.r{background:#e0605a;}
+  .dot.y{background:#e0b04f;}
+  .dot.g{background:#3ddc84;}
+  .term-title{margin-left:8px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-dim);}
+  .term-body{padding:28px 26px 32px; font-family:'JetBrains Mono', monospace; font-size:15px;}
+  .term-line{color:var(--text-dim); margin-bottom:6px;}
+  .prompt{color:var(--green);}
+  .term-output h1{
+    font-size:clamp(28px, 5vw, 44px);
+    font-weight:800;
+    color:var(--text);
+    margin:14px 0 6px;
+    letter-spacing:-0.01em;
+  }
+  .term-output .role{color:var(--green); font-size:clamp(16px,2.6vw,20px); font-weight:500;}
+  .cursor{display:inline-block; width:9px; height:1.1em; background:var(--green); vertical-align:text-bottom; animation:blink 1s step-end infinite; margin-left:2px;}
+  @keyframes blink{50%{opacity:0;}}
+  .hero-bio{margin-top:22px; max-width:64ch; color:var(--text-dim); font-family:'Inter',sans-serif; font-size:15.5px;}
+  .hero-links{margin-top:26px; display:flex; gap:14px; flex-wrap:wrap;}
+  .pill{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    border:1px solid var(--line);
+    padding:8px 14px;
+    border-radius:4px;
+    text-decoration:none;
+    color:var(--text-dim);
+    transition:all .15s;
+  }
+  .pill:hover{border-color:var(--green-dim); color:var(--green);}
+  .pill.primary{border-color:var(--green-dim); color:var(--green);}
+
+  /* SECTION LABEL */
+  section{padding:64px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--green);
+    margin-bottom:8px;
+  }
+  .section-tag::before{content:"$ "; color:var(--text-dim);}
+  h2.section-title{
+    font-size:26px;
+    font-weight:700;
+    margin-bottom:28px;
+    color:var(--text);
+  }
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:180px 1fr; gap:36px; align-items:start;}
+  .about-photo{
+    width:100%; aspect-ratio:1/1; object-fit:cover;
+    border-radius:8px; border:1px solid var(--line);
+    filter:grayscale(15%);
+  }
+  .about-text p{color:var(--text-dim); margin-bottom:14px; font-size:15.5px;}
+  .about-text strong{color:var(--text); font-weight:600;}
+
+  /* SKILLS */
+  .skills-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+  .skill-card{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:18px 18px 16px;
+  }
+  .skill-card h3{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; color:var(--amber);
+    margin-bottom:12px;
+  }
+  .skill-card h3::before{content:"# "; color:var(--text-dim);}
+  .skill-card ul{list-style:none;}
+  .skill-card li{
+    font-size:14px; color:var(--text-dim); padding:4px 0;
+    display:flex; align-items:center; gap:8px;
+  }
+  .skill-card li::before{content:"›"; color:var(--green-dim); font-weight:700;}
+
+  /* PROJECTS */
+  .project{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    margin-bottom:20px;
+    overflow:hidden;
+  }
+  .project-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:var(--bg-raised);
+  }
+  .project-head .fname{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--text-dim);}
+  .project-head .fname .ext{color:var(--green);}
+  .project-body{padding:22px 22px 24px;}
+  .project-body h3{font-size:19px; margin-bottom:8px; color:var(--text);}
+  .project-body p{color:var(--text-dim); font-size:15px; margin-bottom:14px;}
+  .stack{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;}
+  .stack span{
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    color:var(--green); border:1px solid var(--green-dim);
+    padding:3px 9px; border-radius:3px;
+  }
+  .project-note{
+    font-size:13.5px; color:var(--text-dim);
+    border-left:2px solid var(--green-dim);
+    padding-left:12px; font-style:italic;
+  }
+
+  /* CERTS + EDU */
+  .cert-list{list-style:none;}
+  .cert-list li{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:14px 0; border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .cert-list li:last-child{border-bottom:none;}
+  .cert-list .cname{color:var(--text);}
+  .cert-list .cmeta{color:var(--text-dim); font-family:'JetBrains Mono', monospace; font-size:12.5px; white-space:nowrap;}
+  .edu-block{
+    margin-top:28px; padding-top:24px; border-top:1px dashed var(--line);
+  }
+  .edu-block h3{font-size:16px; color:var(--text); margin-bottom:4px;}
+  .edu-block p{color:var(--text-dim); font-size:14.5px;}
+
+  /* CONTACT */
+  .contact-term .term-body{padding:26px;}
+  .contact-line{margin-bottom:10px; font-size:14.5px;}
+  .contact-line .k{color:var(--text-dim);}
+  .contact-line a{color:var(--green); text-decoration:none;}
+  .contact-line a:hover{text-decoration:underline;}
+
+  footer{
+    padding:32px 0 48px;
+    text-align:center;
+    color:var(--text-dim);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+  }
+
+  @media (max-width:720px){
+    .about-grid{grid-template-columns:1fr;}
+    .about-photo{width:120px;}
+    .skills-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-id">yussuf<span class="dim">@</span>security<span class="dim">:~$</span></div>
+    <div class="nav-mobile-hide">
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#skills">skills</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#certs">certs</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+      <a class="cv-btn" href="./resume.pdf" download="Yussuf_Akram_Ibrahim_Resume.pdf">↓ Download CV</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">yussuf@security: ~</span>
+      </div>
+      <div class="term-body">
+        <div class="term-line"><span class="prompt">$</span> whoami</div>
+        <div class="term-output">
+          <h1>Yussuf Akram Ibrahim</h1>
+          <div class="role">Aspiring Cloud Security Engineer<span class="cursor"></span></div>
+        </div>
+        <p class="hero-bio">CSIT student at Egypt-Japan University of Science and Technology, specializing in Cybersecurity and working through the DEPI AWS track toward cloud security. I build systems to understand how they break — encryption tools, access-control hardware, small automations — and I'm currently sequencing the AWS SAA-C03 and SCS-C03 certifications on the way to a cloud security internship.</p>
+        <div class="hero-links">
+          <a class="pill primary" href="mailto:yussufakram189@gmail.com">yussufakram189@gmail.com</a>
+          <a class="pill" href="https://github.com/YussufAkram15" target="_blank" rel="noopener">github.com/YussufAkram15</a>
+          <a class="pill" href="https://www.linkedin.com/in/yussuf-akram" target="_blank" rel="noopener">linkedin.com/in/yussuf-akram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-tag">cat about.md</div>
+    <h2 class="section-title">About</h2>
+    <div class="about-grid">
+      <img class="about-photo" src="./photo.jpeg" alt="Yussuf Akram Ibrahim">
+      <div class="about-text">
+        <p>I'm heading into <strong>Level 3</strong> of my B.Sc. in Computer Networks &amp; Cybersecurity at E-JUST, expecting to graduate in <strong>June 2028</strong>. My focus has narrowed toward <strong>cloud security</strong> — the intersection of the systems knowledge I already have (cryptography, access control, networking) and the AWS-specific skills I'm building now through DEPI: IAM, VPC, CloudTrail, and infrastructure-as-code with Terraform and boto3.</p>
+        <p>Outside coursework, I learn by building things that touch real security decisions — key management, physical access control, tamper detection — rather than just reading about them, and I'm working through CTF platforms like OverTheWire to sharpen the offensive side.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-tag">cat skills.txt</div>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>cloud_and_aws</h3>
+        <ul>
+          <li>IAM &amp; VPC design</li>
+          <li>CloudTrail / logging</li>
+          <li>Terraform (IaC)</li>
+          <li>Python — boto3</li>
+          <li>AWS SAA-C03 (in progress)</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>security</h3>
+        <ul>
+          <li>Cryptography — AES / RSA</li>
+          <li>Access control systems</li>
+          <li>CTF / OverTheWire Bandit</li>
+          <li>Linux CLI</li>
+          <li>Secure input handling</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>languages_and_tools</h3>
+        <ul>
+          <li>Python</li>
+          <li>C++ (Arduino)</li>
+          <li>SQL / MySQL</li>
+          <li>Git</li>
+          <li>Object-oriented design</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-tag">ls -la projects/</div>
+    <h2 class="section-title">Projects</h2>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="fname">secure_vault<span class="ext">.py</span></span>
+        <span class="fname">Operating Systems course + personal build</span>
+      </div>
+      <div class="project-body">
+        <h3>Secure Vault — File Encryption Utility</h3>
+        <p>A hybrid encryption tool for encrypting and decrypting local files, built to understand key management rather than just call a library. AES handles fast block encryption of file data; RSA wraps the AES key for secure exchange. Ships as a dark-themed GUI using the Web Crypto API alongside a Python CLI, with attention to safe file-permission handling during read/write so plaintext never lingers longer than it has to.</p>
+        <div class="stack">
+          <span>Python</span><span>AES / RSA</span><span>Web Crypto API</span><span>HTML / CSS / JS</span>
+        </div>
+        <p class="project-note">Built with a 5-person team for Operating Systems; the CLI and GUI shown here are my own follow-on build.</p>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="fname">smart_safe<span class="ext">.ino</span></span>
+        <span class="fname">Embedded Systems</span>
+      </div>
+      <div class="project-body">
+        <h3>Smart Safe Hardware Retrofit</h3>
+        <p>Retrofitted a real commercial safe into a contactless access-control system. An RC522 RFID module replaces the mechanical lock for authentication, while an MPU-6050 accelerometer/gyroscope runs real-time tamper detection — flagging unauthorized tilting, movement, or forced entry attempts as they happen.</p>
+        <div class="stack">
+          <span>C++ / Arduino</span><span>RC522 RFID</span><span>MPU-6050</span><span>Relay / Solenoid</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="fname">student_mgmt_system<span class="ext">.sql</span></span>
+        <span class="fname">Advanced Programming</span>
+      </div>
+      <div class="project-body">
+        <h3>Student Management System</h3>
+        <p>A database-driven application built with a 5-member team to track, update, and manage student records. Designed the relational schema for data integrity and fast retrieval, and built the Python backend handling CRUD operations with input validation.</p>
+        <div class="stack">
+          <span>Python</span><span>MySQL</span><span>CRUD</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="section-tag">cat certifications.log</div>
+    <h2 class="section-title">Certifications &amp; Education</h2>
+    <ul class="cert-list">
+      <li><span class="cname">AWS Skill Builder — Premium (Student Rewards)</span><span class="cmeta">via E-JUST · 2026</span></li>
+      <li><span class="cname">DEPI — Digital Egypt Pioneers Initiative, AWS Track</span><span class="cmeta">in progress</span></li>
+      <li><span class="cname">Google Cybersecurity Certificate</span><span class="cmeta">completed</span></li>
+      <li><span class="cname">Cisco Introduction to Cybersecurity</span><span class="cmeta">completed</span></li>
+    </ul>
+    <div class="edu-block">
+      <h3>B.Sc. Computer Networks &amp; Cybersecurity</h3>
+      <p>Egypt-Japan University of Science and Technology (E-JUST) — Alexandria, Egypt · Expected June 2028</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-tag">./contact.sh</div>
+    <h2 class="section-title">Contact</h2>
+    <div class="terminal contact-term">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">yussuf@security: ~/contact</span>
+      </div>
+      <div class="term-body">
+        <div class="contact-line"><span class="k">email</span> → <a href="mailto:yussufakram189@gmail.com">yussufakram189@gmail.com</a></div>
+        <div class="contact-line"><span class="k">github</span> → <a href="https://github.com/YussufAkram15" target="_blank" rel="noopener">github.com/YussufAkram15</a></div>
+        <div class="contact-line"><span class="k">linkedin</span> → <a href="https://www.linkedin.com/in/yussuf-akram" target="_blank" rel="noopener">linkedin.com/in/yussuf-akram</a></div>
+        <div class="contact-line"><span class="k">resume</span> → <a href="./resume.pdf" download="Yussuf_Akram_Ibrahim_Resume.pdf">download PDF</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  built by Yussuf Akram Ibrahim · Alexandria, Egypt
+</footer>
+
+</body>
+</html>
