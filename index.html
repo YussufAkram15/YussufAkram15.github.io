@@ -437,6 +437,7 @@
       }
       .about-photo {
         width: 100%;
+        height: auto;
         aspect-ratio: 3/4;
         object-fit: cover;
         object-position: 50% 22%;
@@ -643,6 +644,124 @@
         stroke: var(--green-dim);
         stroke-width: 1.4;
         fill: none;
+      }
+      /* PROJECT MEDIA */
+      .media-block {
+        margin: 4px 0 16px;
+      }
+      .media-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 10px;
+      }
+      .media-label::before {
+        content: "$ ";
+        color: var(--green);
+      }
+      .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
+      }
+      .shot {
+        position: relative;
+        display: block;
+        padding: 0;
+        border: 1px solid rgba(92, 122, 107, 0.34);
+        border-radius: 5px;
+        background: var(--bg-raised);
+        overflow: hidden;
+        cursor: zoom-in;
+        transition:
+          border-color 0.16s ease,
+          box-shadow 0.16s ease;
+      }
+      .shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        opacity: 0.88;
+        transition: opacity 0.16s ease;
+      }
+      .shot:hover,
+      .shot:focus-visible {
+        border-color: rgba(52, 211, 153, 0.5);
+        box-shadow: 0 0 16px rgba(52, 211, 153, 0.1);
+        outline: none;
+      }
+      .shot:hover img,
+      .shot:focus-visible img {
+        opacity: 1;
+      }
+      .shot figcaption {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        color: var(--text-dim);
+        padding: 6px 8px 7px;
+        border-top: 1px solid rgba(92, 122, 107, 0.22);
+        text-align: left;
+      }
+      .demo-video {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+        border: 1px solid rgba(92, 122, 107, 0.34);
+        border-radius: 5px;
+        background: #000;
+      }
+      /* LIGHTBOX */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 14px;
+        padding: 32px 20px;
+        background: rgba(5, 8, 11, 0.94);
+        backdrop-filter: blur(3px);
+      }
+      .lightbox[hidden] {
+        display: none;
+      }
+      .lightbox img {
+        max-width: min(1000px, 94vw);
+        max-height: 78vh;
+        object-fit: contain;
+        border: 1px solid rgba(92, 122, 107, 0.4);
+        border-radius: 6px;
+      }
+      .lightbox-cap {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12.5px;
+        color: var(--text-dim);
+        text-align: center;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 18px;
+        right: 20px;
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+        line-height: 1;
+        color: var(--text);
+        background: rgba(15, 21, 18, 0.9);
+        border: 1px solid rgba(92, 122, 107, 0.4);
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .lightbox-close:hover {
+        border-color: var(--green);
+        color: var(--green);
       }
       .project-note {
         font-size: 13.5px;
@@ -1179,8 +1298,8 @@
               class="about-photo"
               src="./photo.jpeg"
               alt="Yussuf Akram Ibrahim"
-              width="544"
-              height="480"
+              width="420"
+              height="560"
               loading="lazy"
               decoding="async"
             />
@@ -1425,7 +1544,7 @@
             <div class="project-body">
               <h3>Smart Safe Hardware Retrofit</h3>
               <div class="proj-meta">
-                <span class="role-tag no-code">code not public</span>
+                <span class="role-tag">solo build</span>
               </div>
               <p>
                 Retrofitted a real commercial safe into a contactless
@@ -1435,6 +1554,57 @@
                 flagging unauthorized tilting, movement, or forced entry
                 attempts as they happen.
               </p>
+
+              <div class="media-block">
+                <div class="media-label">ls build/</div>
+                <div class="media-grid">
+                  <button class="shot" type="button" data-cap="The retrofitted safe — RC522 reader mounted in the front panel">
+                    <img src="./assets/smart-safe/retrofit-front.webp" alt="The finished safe with an RFID reader mounted in its front panel" loading="lazy" decoding="async" width="828" height="721" />
+                    <figcaption>retrofit-front</figcaption>
+                  </button>
+                  <button class="shot" type="button" data-cap="Inside the door — Arduino, relay, solenoid and MPU-6050 wired in">
+                    <img src="./assets/smart-safe/internals.webp" alt="Inside the safe door showing the Arduino, relay board and wiring" loading="lazy" decoding="async" width="750" height="1000" />
+                    <figcaption>internals</figcaption>
+                  </button>
+                  <button class="shot" type="button" data-cap="Mid-build — the lock assembly out of the safe body on the bench">
+                    <img src="./assets/smart-safe/build-bench.webp" alt="The safe opened on a workbench during the build" loading="lazy" decoding="async" width="1000" height="563" />
+                    <figcaption>build-bench</figcaption>
+                  </button>
+                  <button class="shot" type="button" data-cap="Authentication path — scanned UID checked against the authorized list before the relay is allowed to drive the lock">
+                    <img src="./assets/smart-safe/rfid-auth-flow.webp" alt="Diagram of the RFID authentication path from scanner to relay to lock" loading="lazy" decoding="async" width="1000" height="456" />
+                    <figcaption>rfid-auth-flow</figcaption>
+                  </button>
+                  <button class="shot" type="button" data-cap="Flyback diode across the solenoid — clamps the inductive kickback that would otherwise spike back into the microcontroller">
+                    <img src="./assets/smart-safe/flyback-diode.webp" alt="Circuit diagram showing a flyback diode safely discharging an inductive coil" loading="lazy" decoding="async" width="593" height="446" />
+                    <figcaption>flyback-diode</figcaption>
+                  </button>
+                  <button class="shot" type="button" data-cap="MPU-6050 tilt readout — the baseline the tamper check compares against">
+                    <img src="./assets/smart-safe/tilt-axes.webp" alt="Three-axis tilt readout from the MPU-6050 sensor" loading="lazy" decoding="async" width="1000" height="659" />
+                    <figcaption>tilt-axes</figcaption>
+                  </button>
+                  <button class="shot" type="button" data-cap="Laser-cut enclosure built to demo the lock mechanism outside the safe">
+                    <img src="./assets/smart-safe/demo-enclosure.webp" alt="Laser-cut wooden demonstration enclosure for the lock mechanism" loading="lazy" decoding="async" width="599" height="1000" />
+                    <figcaption>demo-enclosure</figcaption>
+                  </button>
+                </div>
+              </div>
+
+              <div class="media-block">
+                <div class="media-label">play demo.mp4</div>
+                <video
+                  class="demo-video"
+                  controls
+                  preload="none"
+                  playsinline
+                  poster="./assets/smart-safe/demo-poster.webp"
+                  width="464"
+                  height="832"
+                >
+                  <source src="./assets/smart-safe/demo.mp4" type="video/mp4" />
+                  Your browser cannot play this video.
+                </video>
+              </div>
+
               <div class="stack">
                 <span>C++ / Arduino</span><span>RC522 RFID</span
                 ><span>MPU-6050</span><span>Relay / Solenoid</span>
@@ -1841,6 +2011,12 @@
       <footer>built by Yussuf Akram Ibrahim · Alexandria, Egypt</footer>
     </main>
 
+    <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Project image">
+      <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Close image">&times;</button>
+      <img id="lightboxImg" src="" alt="" />
+      <p class="lightbox-cap" id="lightboxCap"></p>
+    </div>
+
     <script>
       const menuToggle = document.querySelector(".menu-toggle");
       const siteNavigation = document.querySelector("#site-navigation");
@@ -1866,6 +2042,47 @@
          While this is empty the form falls back to opening a prefilled
          mailto: draft, so it still works.
       ---------------------------------------------------------------- */
+      /* ---- image lightbox ---- */
+      (function () {
+        const box = document.getElementById("lightbox");
+        const boxImg = document.getElementById("lightboxImg");
+        const boxCap = document.getElementById("lightboxCap");
+        const closeBtn = document.getElementById("lightboxClose");
+        let lastFocused = null;
+
+        function open(btn) {
+          const img = btn.querySelector("img");
+          boxImg.src = img.src;
+          boxImg.alt = img.alt;
+          boxCap.textContent = btn.dataset.cap || "";
+          lastFocused = btn;
+          box.hidden = false;
+          document.body.style.overflow = "hidden";
+          closeBtn.focus();
+        }
+
+        function close() {
+          box.hidden = true;
+          boxImg.src = "";
+          document.body.style.overflow = "";
+          if (lastFocused) lastFocused.focus();
+        }
+
+        document.querySelectorAll(".shot").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            open(btn);
+          });
+        });
+
+        closeBtn.addEventListener("click", close);
+        box.addEventListener("click", function (e) {
+          if (e.target === box) close();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !box.hidden) close();
+        });
+      })();
+
       const FORMSPREE_ENDPOINT = "";
 
       const contactForm = document.querySelector("#contact-form");
