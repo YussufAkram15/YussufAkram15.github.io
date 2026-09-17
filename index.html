@@ -497,15 +497,15 @@
       }
 
       /* SECTION LABEL */
-      section {
+      main > section {
         position: relative;
         padding: 76px 0;
       }
       /* alternate the ground so consecutive sections stop reading as one slab */
-      section:nth-of-type(even) {
+      main > section:nth-of-type(even) {
         background: var(--surface-1);
       }
-      section + section::before {
+      main > section + section::before {
         content: "";
         position: absolute;
         top: 0;
@@ -567,45 +567,208 @@
       }
 
       /* SKILLS */
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
-      .skill-card {
-        background: var(--bg-card);
-        border: 1px solid rgba(92, 122, 107, 0.4);
-        border-radius: 6px;
-        padding: 18px 18px 16px;
-        box-shadow: 0 0 12px rgba(52, 211, 153, 0.05);
+
+      /* SKILLS — filterable evidence matrix */
+      .skill-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 22px;
+      }
+      .sfilter {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        color: var(--text-dim);
+        background: transparent;
+        border: 1px solid rgba(92, 122, 107, 0.34);
+        border-radius: 999px;
+        padding: 7px 14px;
+        cursor: pointer;
         transition:
-          border-color 0.18s ease,
-          box-shadow 0.18s ease;
+          color 0.16s ease,
+          border-color 0.16s ease,
+          background 0.16s ease;
       }
-      .skill-list {
-        list-style: none;
+      .sfilter::before {
+        content: "#";
+        color: var(--green-dim);
       }
-      .skill-list li {
+      .sfilter:hover,
+      .sfilter:focus-visible {
+        color: var(--text);
+        border-color: rgba(52, 211, 153, 0.45);
+        outline: none;
+      }
+      .sfilter.is-on {
+        color: var(--surface-0);
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .sfilter.is-on::before {
+        color: rgba(11, 15, 20, 0.55);
+      }
+      .sf-n {
+        font-size: 10.5px;
+        opacity: 0.75;
+      }
+
+      .skill-matrix {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+      }
+      .sgroup.is-off {
+        display: none;
+      }
+      .sgroup-h {
         display: flex;
         align-items: baseline;
-        justify-content: flex-start;
-        gap: 9px;
-        padding: 9px 0;
-        border-bottom: 1px dashed rgba(92, 122, 107, 0.2);
+        gap: 8px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        color: var(--amber);
+        margin-bottom: 11px;
       }
-      .skill-list li::before {
+      .sgroup-h::before {
+        content: "#";
+        color: var(--green-dim);
+      }
+      .sgroup-h::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          rgba(92, 122, 107, 0.4),
+          transparent
+        );
+      }
+      .sgroup-n {
+        order: 1;
+        font-size: 10.5px;
+        color: var(--text-dim);
+      }
+      .sgroup-rows {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      @media (min-width: 760px) {
+        .sgroup-rows {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .srow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 16px;
+        background: var(--surface-2);
+        border: 1px solid rgba(92, 122, 107, 0.34);
+        border-left: 2px solid var(--green-dim);
+        border-radius: 5px;
+        transition:
+          transform 0.16s ease,
+          border-color 0.16s ease,
+          background 0.16s ease,
+          opacity 0.22s ease;
+      }
+      .srow:hover {
+        transform: translateX(3px);
+        border-color: rgba(52, 211, 153, 0.4);
+        border-left-color: var(--green);
+        background: var(--surface-3);
+      }
+      .srow-cat {
         flex: 0 0 auto;
-        align-self: center;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--green-dim);
       }
-      .skill-list li:last-child {
-        border-bottom: none;
+      .srow[data-cat="cloud"] .srow-cat {
+        background: var(--green);
       }
-      .sk {
+      .srow[data-cat="security"] .srow-cat {
+        background: var(--amber);
+      }
+      .srow[data-cat="languages"] .srow-cat {
+        background: var(--green-soft);
+      }
+      .srow-name {
         flex: 1 1 auto;
         color: var(--text);
         font-size: 14.5px;
-        line-height: 1.45;
+        line-height: 1.4;
       }
+      .srow .proof {
+        flex: 0 0 auto;
+      }
+      /* filtered out — collapses without a layout jump on the survivors */
+      .srow.is-off {
+        display: none;
+      }
+
+      .skill-footer {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+      @media (min-width: 760px) {
+        .skill-footer {
+          grid-template-columns: 1fr 1fr;
+          gap: 26px;
+        }
+      }
+      .sf-label {
+        display: block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--amber);
+        margin-bottom: 5px;
+      }
+      .sf-items {
+        font-size: 13.5px;
+        line-height: 1.6;
+        color: var(--text-dim);
+      }
+      @media (max-width: 420px) {
+        .srow {
+          flex-wrap: wrap;
+        }
+        .srow .proof {
+          margin-left: 18px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .srow:hover {
+          transform: none;
+        }
+      }
+
       .proof {
         flex: 0 0 auto;
         font-family: "JetBrains Mono", monospace;
@@ -628,65 +791,11 @@
         border-color: rgba(52, 211, 153, 0.45);
         outline: none;
       }
-      .learning {
-        margin-top: 14px;
-        padding-top: 12px;
-        border-top: 1px solid var(--line);
-      }
-      .learning-label {
-        display: block;
-        font-family: "JetBrains Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--amber);
-        margin-bottom: 5px;
-      }
-      .learning-items {
-        font-size: 13px;
-        line-height: 1.6;
-        color: var(--text-dim);
-      }
       @media (max-width: 420px) {
-        .skill-list li {
-          flex-direction: column;
-          gap: 5px;
-        }
         .proof {
           align-self: flex-start;
         }
       }
-      .skill-card:hover {
-        border-color: rgba(52, 211, 153, 0.38);
-        box-shadow: 0 0 20px rgba(52, 211, 153, 0.09);
-      }
-      .skill-card h3 {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 13px;
-        color: var(--amber);
-        margin-bottom: 12px;
-      }
-      .skill-card h3::before {
-        content: "# ";
-        color: var(--text-dim);
-      }
-      .skill-card ul {
-        list-style: none;
-      }
-      .skill-card li {
-        font-size: 14px;
-        color: var(--text-dim);
-        padding: 4px 0;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .skill-card li::before {
-        content: "›";
-        color: var(--green-dim);
-        font-weight: 700;
-      }
-
       /* PROJECTS */
       .project {
         background: var(--bg-card);
@@ -1769,9 +1878,6 @@
         .about-photo {
           width: 150px;
         }
-        .skills-grid {
-          grid-template-columns: 1fr;
-        }
         .cta-band {
           flex-direction: column;
           align-items: flex-start;
@@ -1986,91 +2092,112 @@
         <div class="wrap">
           <div class="section-tag">cat skills.txt</div>
           <h2 class="section-title">Skills</h2>
-          <div class="skills-grid">
-            <div class="skill-card">
-              <h3>cloud_and_aws</h3>
-              <ul class="skill-list">
-                <li>
-                  <span class="sk">IAM &amp; VPC design</span>
-                  <a class="proof" href="#experience">AWS Academy</a>
-                </li>
-                <li>
-                  <span class="sk">CloudTrail / logging</span>
-                  <a class="proof" href="#experience">AWS Academy</a>
-                </li>
-                <li>
-                  <span class="sk">Core AWS services</span>
-                  <a class="proof" href="#experience">DEPI internship</a>
-                </li>
-              </ul>
-              <div class="learning">
-                <span class="learning-label">currently learning</span>
-                <span class="learning-items"
-                  >Terraform (IaC) · Python boto3 · SAA-C03</span
-                >
-              </div>
-            </div>
+          <div class="skill-filters" role="group" aria-label="Filter skills by area">
+            <button type="button" class="sfilter is-on" data-filter="all" aria-pressed="true">
+              all<span class="sf-n">13</span>
+            </button>
+            <button type="button" class="sfilter" data-filter="cloud" aria-pressed="false">
+              cloud<span class="sf-n">3</span>
+            </button>
+            <button type="button" class="sfilter" data-filter="security" aria-pressed="false">
+              security<span class="sf-n">5</span>
+            </button>
+            <button type="button" class="sfilter" data-filter="languages" aria-pressed="false">
+              languages<span class="sf-n">5</span>
+            </button>
+          </div>
 
-            <div class="skill-card">
-              <h3>security</h3>
-              <ul class="skill-list">
-                <li>
-                  <span class="sk">Cryptography — AES / RSA</span>
-                  <a class="proof" href="#projects">secure_vault</a>
-                </li>
-                <li>
-                  <span class="sk">Access control systems</span>
-                  <a class="proof" href="#projects">smart_safe</a>
-                </li>
-                <li>
-                  <span class="sk">Tamper detection</span>
-                  <a class="proof" href="#projects">smart_safe</a>
-                </li>
-                <li>
-                  <span class="sk">Secure input handling</span>
-                  <a class="proof" href="#projects">student_mgmt</a>
-                </li>
-                <li>
-                  <span class="sk">Security fundamentals</span>
-                  <a class="proof" href="#certs">Cisco · Google</a>
-                </li>
+          <div class="skill-matrix" id="skill-matrix">
+            <div class="sgroup" data-group="cloud">
+              <h3 class="sgroup-h">cloud_and_aws<span class="sgroup-n">3</span></h3>
+              <ul class="sgroup-rows">
+              <li class="srow" data-cat="cloud">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">IAM &amp; VPC design</span>
+              <a class="proof" href="#experience">AWS Academy</a>
+            </li>
+              <li class="srow" data-cat="cloud">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">CloudTrail / logging</span>
+              <a class="proof" href="#experience">AWS Academy</a>
+            </li>
+              <li class="srow" data-cat="cloud">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">Core AWS services</span>
+              <a class="proof" href="#experience">DEPI internship</a>
+            </li>
               </ul>
-              <div class="learning">
-                <span class="learning-label">practising</span>
-                <span class="learning-items">OverTheWire Bandit · Linux CLI</span>
-              </div>
             </div>
-
-            <div class="skill-card">
-              <h3>languages_and_tools</h3>
-              <ul class="skill-list">
-                <li>
-                  <span class="sk">Python</span>
-                  <a class="proof" href="#projects">secure_vault · bazar</a>
-                </li>
-                <li>
-                  <span class="sk">C++ / Arduino</span>
-                  <a class="proof" href="#projects">smart_safe</a>
-                </li>
-                <li>
-                  <span class="sk">SQL — MySQL / SQLite</span>
-                  <a class="proof" href="#projects">student_mgmt · bazar</a>
-                </li>
-                <li>
-                  <span class="sk">Object-oriented design</span>
-                  <a class="proof" href="#projects">banking_system</a>
-                </li>
-                <li>
-                  <span class="sk">Git</span>
-                  <a
-                    class="proof"
-                    href="https://github.com/YussufAkram15"
-                    target="_blank"
-                    rel="noopener"
-                    >github ↗</a
-                  >
-                </li>
+            <div class="sgroup" data-group="security">
+              <h3 class="sgroup-h">security<span class="sgroup-n">5</span></h3>
+              <ul class="sgroup-rows">
+              <li class="srow" data-cat="security">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">Cryptography — AES / RSA</span>
+              <a class="proof" href="#projects">secure_vault</a>
+            </li>
+              <li class="srow" data-cat="security">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">Access control systems</span>
+              <a class="proof" href="#projects">smart_safe</a>
+            </li>
+              <li class="srow" data-cat="security">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">Tamper detection</span>
+              <a class="proof" href="#projects">smart_safe</a>
+            </li>
+              <li class="srow" data-cat="security">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">Secure input handling</span>
+              <a class="proof" href="#projects">student_mgmt</a>
+            </li>
+              <li class="srow" data-cat="security">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">Security fundamentals</span>
+              <a class="proof" href="#certs">Cisco · Google</a>
+            </li>
               </ul>
+            </div>
+            <div class="sgroup" data-group="languages">
+              <h3 class="sgroup-h">languages_and_tools<span class="sgroup-n">5</span></h3>
+              <ul class="sgroup-rows">
+              <li class="srow" data-cat="languages">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">Python</span>
+              <a class="proof" href="#projects">secure_vault · bazar</a>
+            </li>
+              <li class="srow" data-cat="languages">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">C++ / Arduino</span>
+              <a class="proof" href="#projects">smart_safe</a>
+            </li>
+              <li class="srow" data-cat="languages">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">SQL — MySQL / SQLite</span>
+              <a class="proof" href="#projects">student_mgmt · bazar</a>
+            </li>
+              <li class="srow" data-cat="languages">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">Object-oriented design</span>
+              <a class="proof" href="#projects">banking_system</a>
+            </li>
+              <li class="srow" data-cat="languages">
+              <span class="srow-cat" aria-hidden="true"></span>
+              <span class="srow-name">Git</span>
+              <a class="proof" href="https://github.com/YussufAkram15" target="_blank" rel="noopener">github ↗</a>
+            </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="skill-footer">
+            <div class="sf-block">
+              <span class="sf-label">currently learning</span>
+              <span class="sf-items">Terraform (IaC) · Python boto3 · AWS SAA-C03</span>
+            </div>
+            <div class="sf-block">
+              <span class="sf-label">practising</span>
+              <span class="sf-items">OverTheWire Bandit · Linux CLI</span>
             </div>
           </div>
         </div>
@@ -2754,13 +2881,64 @@
          While this is empty the form falls back to opening a prefilled
          mailto: draft, so it still works.
       ---------------------------------------------------------------- */
+      /* ---- skills filter ---- */
+      (function () {
+        const bar = document.querySelector(".skill-filters");
+        const matrix = document.querySelector("#skill-matrix");
+        if (!bar || !matrix) return;
+
+        const buttons = Array.prototype.slice.call(
+          bar.querySelectorAll(".sfilter")
+        );
+        const rows = Array.prototype.slice.call(
+          matrix.querySelectorAll(".srow")
+        );
+
+        // announce the result for screen readers without moving focus
+        const live = document.createElement("p");
+        live.className = "sr-only";
+        live.setAttribute("aria-live", "polite");
+        matrix.parentNode.insertBefore(live, matrix);
+
+        const groups = Array.prototype.slice.call(
+          matrix.querySelectorAll(".sgroup")
+        );
+
+        function apply(filter) {
+          let shown = 0;
+          rows.forEach(function (row) {
+            const match = filter === "all" || row.dataset.cat === filter;
+            row.classList.toggle("is-off", !match);
+            if (match) shown++;
+          });
+          groups.forEach(function (g) {
+            g.classList.toggle(
+              "is-off",
+              filter !== "all" && g.dataset.group !== filter
+            );
+          });
+          buttons.forEach(function (b) {
+            const on = b.dataset.filter === filter;
+            b.classList.toggle("is-on", on);
+            b.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+          live.textContent =
+            shown + (shown === 1 ? " skill shown" : " skills shown");
+        }
+
+        bar.addEventListener("click", function (e) {
+          const btn = e.target.closest(".sfilter");
+          if (btn) apply(btn.dataset.filter);
+        });
+      })();
+
       /* ---- scroll reveals ---- */
       (function () {
         if (!("IntersectionObserver" in window)) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
         const targets = document.querySelectorAll(
-          "section .section-tag, section .section-title, .skill-card, .project, .mini, .role, .roadmap li, .also-done, .edu-block, .contact-term, .cta-band"
+          "section .section-tag, section .section-title, .skill-filters, .sgroup, .skill-footer, .project, .mini, .role, .roadmap li, .also-done, .edu-block, .contact-term, .cta-band"
         );
         if (!targets.length) return;
 
@@ -2772,7 +2950,7 @@
         });
 
         // stagger members of a group so grids cascade instead of popping at once
-        [".skills-grid", ".mini-grid", ".roadmap", ".contact-grid"].forEach(
+        [".skill-matrix", ".mini-grid", ".roadmap", ".contact-grid"].forEach(
           function (sel) {
             document.querySelectorAll(sel).forEach(function (group) {
               Array.prototype.forEach.call(group.children, function (child, i) {
