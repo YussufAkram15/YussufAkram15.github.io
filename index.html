@@ -666,6 +666,64 @@
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 10px;
       }
+      .shot-hero {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 10px;
+        cursor: zoom-in;
+      }
+      .shot-hero img {
+        aspect-ratio: 4/3;
+      }
+      .shot-hero figcaption {
+        font-size: 11px;
+      }
+      .media-more {
+        margin-top: 2px;
+      }
+      .media-more > summary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        list-style: none;
+        cursor: pointer;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11.5px;
+        letter-spacing: 0.04em;
+        color: var(--text-dim);
+        background: rgba(92, 122, 107, 0.08);
+        border: 1px solid rgba(92, 122, 107, 0.34);
+        border-radius: 5px;
+        padding: 7px 13px;
+        transition:
+          border-color 0.16s ease,
+          color 0.16s ease;
+      }
+      .media-more > summary::-webkit-details-marker {
+        display: none;
+      }
+      .media-more > summary::before {
+        content: "$";
+        color: var(--green);
+      }
+      .media-more > summary::after {
+        content: "▸";
+        color: var(--green-soft);
+        transition: transform 0.16s ease;
+      }
+      .media-more[open] > summary::after {
+        transform: rotate(90deg);
+      }
+      .media-more > summary:hover,
+      .media-more > summary:focus-visible {
+        border-color: rgba(52, 211, 153, 0.5);
+        color: var(--text);
+        outline: none;
+      }
+      .media-more[open] > summary {
+        margin-bottom: 12px;
+      }
       .shot {
         position: relative;
         display: block;
@@ -939,7 +997,22 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 20px;
-        align-items: start;
+        align-items: stretch;
+      }
+      .contact-term {
+        display: flex;
+        flex-direction: column;
+      }
+      .contact-term .term-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      @media (min-width: 900px) {
+        /* side by side: spread the channel rows so both cards end level */
+        .contact-term .channel {
+          flex: 1 0 auto;
+        }
       }
       @media (min-width: 900px) {
         .contact-grid {
@@ -1557,11 +1630,13 @@
 
               <div class="media-block">
                 <div class="media-label">ls build/</div>
+                <button class="shot shot-hero" type="button" data-cap="The retrofitted safe — RC522 reader mounted in the front panel">
+                  <img src="./assets/smart-safe/retrofit-front.webp" alt="The finished safe with an RFID reader mounted in its front panel" loading="lazy" decoding="async" width="828" height="721" />
+                  <figcaption>retrofit-front — the finished build</figcaption>
+                </button>
+                <details class="media-more">
+                  <summary>ls build/ &mdash; 6 more</summary>
                 <div class="media-grid">
-                  <button class="shot" type="button" data-cap="The retrofitted safe — RC522 reader mounted in the front panel">
-                    <img src="./assets/smart-safe/retrofit-front.webp" alt="The finished safe with an RFID reader mounted in its front panel" loading="lazy" decoding="async" width="828" height="721" />
-                    <figcaption>retrofit-front</figcaption>
-                  </button>
                   <button class="shot" type="button" data-cap="Inside the door — Arduino, relay, solenoid and MPU-6050 wired in">
                     <img src="./assets/smart-safe/internals.webp" alt="Inside the safe door showing the Arduino, relay board and wiring" loading="lazy" decoding="async" width="750" height="1000" />
                     <figcaption>internals</figcaption>
@@ -1587,6 +1662,7 @@
                     <figcaption>demo-enclosure</figcaption>
                   </button>
                 </div>
+                </details>
               </div>
 
               <div class="media-block">
