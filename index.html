@@ -17,6 +17,35 @@
       content="Cybersecurity student building secure AWS infrastructure, automation, and security tools."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yussufakram15.github.io/" />
+    <meta
+      property="og:image"
+      content="https://yussufakram15.github.io/og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Yussuf Akram Ibrahim — cybersecurity student building secure AWS systems"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Yussuf Akram Ibrahim — Cloud Security Engineer"
+    />
+    <meta
+      name="twitter:description"
+      content="Cybersecurity student building secure AWS infrastructure, automation, and security tools."
+    />
+    <meta
+      name="twitter:image"
+      content="https://yussufakram15.github.io/og.png"
+    />
+    <link rel="canonical" href="https://yussufakram15.github.io/" />
+    <meta name="theme-color" content="#0b0f14" />
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap"
@@ -24,15 +53,17 @@
     />
     <style>
       :root {
-        --bg: #0a0f0c;
-        --bg-raised: #101713;
-        --bg-card: #0d1310;
-        --line: #1e2a22;
-        --text: #d9e3dc;
-        --text-dim: #7e9186;
-        --green: #3ddc84;
-        --green-dim: #2a9e5f;
-        --amber: #e0b04f;
+        --bg: #0b0f14;
+        --bg-raised: #101a17;
+        --bg-card: #0f1512;
+        --line: rgba(92, 122, 107, 0.35);
+        --text: #dfeae3;
+        --text-dim: #8f9d96;
+        --green: #34d399;
+        --green-dim: #4d6b5c;
+        --green-soft: #9fe7c5;
+        --amber: #c9a227;
+        --tag-text: #9ca3af;
       }
       * {
         box-sizing: border-box;
@@ -51,7 +82,7 @@
       }
       ::selection {
         background: var(--green-dim);
-        color: #05130a;
+        color: #07140d;
       }
       .mono {
         font-family: "JetBrains Mono", monospace;
@@ -94,8 +125,8 @@
         inset: 0;
         z-index: -1;
         background-image:
-          linear-gradient(rgba(61, 220, 132, 0.035) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(61, 220, 132, 0.035) 1px, transparent 1px);
+          linear-gradient(rgba(52, 211, 153, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(52, 211, 153, 0.035) 1px, transparent 1px);
         background-size: 42px 42px;
         mask-image: radial-gradient(
           ellipse 90% 60% at 50% 0%,
@@ -109,7 +140,7 @@
         position: sticky;
         top: 0;
         z-index: 50;
-        background: rgba(10, 15, 12, 0.88);
+        background: rgba(11, 15, 20, 0.88);
         backdrop-filter: blur(8px);
         border-bottom: 1px solid var(--line);
       }
@@ -138,10 +169,14 @@
       .nav-links a {
         color: var(--text-dim);
         text-decoration: none;
-        transition: color 0.15s;
+        transition: color 0.15s ease;
       }
-      .nav-links a:hover {
-        color: var(--green);
+      .nav-links a:hover,
+      .nav-links a[aria-current="page"] {
+        color: var(--green-dim);
+      }
+      .nav-links a[aria-current="page"] {
+        color: var(--green-soft);
       }
       .cv-btn {
         font-family: "JetBrains Mono", monospace;
@@ -153,6 +188,7 @@
         text-decoration: none;
         font-weight: 700;
         white-space: nowrap;
+        box-shadow: 0 0 18px rgba(52, 211, 153, 0.2);
       }
       .cv-btn:hover {
         background: #59e79c;
@@ -166,7 +202,7 @@
         display: none;
         background: none;
         border: 1px solid var(--line);
-        color: var(--green);
+        color: var(--green-dim);
         padding: 7px 10px;
         border-radius: 3px;
         font:
@@ -180,10 +216,12 @@
       }
       .terminal {
         background: var(--bg-card);
-        border: 1px solid var(--line);
+        border: 1px solid rgba(92, 122, 107, 0.4);
         border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+        box-shadow:
+          0 0 12px rgba(52, 211, 153, 0.05),
+          0 30px 80px -30px rgba(0, 0, 0, 0.6);
       }
       .term-bar {
         display: flex;
@@ -205,7 +243,7 @@
         background: #e0b04f;
       }
       .dot.g {
-        background: #3ddc84;
+        background: #34d399;
       }
       .term-title {
         margin-left: 8px;
@@ -233,7 +271,7 @@
         letter-spacing: -0.01em;
       }
       .term-output .role {
-        color: var(--green);
+        color: var(--green-soft);
         font-size: clamp(16px, 2.6vw, 20px);
         font-weight: 500;
       }
@@ -261,7 +299,13 @@
       .hero-links {
         margin-top: 26px;
         display: flex;
-        gap: 14px;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .hero-social {
+        margin-top: 14px;
+        display: flex;
+        gap: 10px;
         flex-wrap: wrap;
       }
       .pill {
@@ -271,16 +315,93 @@
         padding: 8px 14px;
         border-radius: 4px;
         text-decoration: none;
-        color: var(--text-dim);
-        transition: all 0.15s;
+        color: var(--green-dim);
+        transition: all 0.15s ease;
       }
       .pill:hover {
-        border-color: var(--green-dim);
-        color: var(--green);
+        border-color: rgba(92, 122, 107, 0.7);
+        color: var(--green-soft);
       }
-      .pill.primary {
-        border-color: var(--green-dim);
-        color: var(--green);
+
+      /* PROOF CHIPS */
+      .stat-chips {
+        margin-top: 22px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .chip {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12.5px;
+        color: var(--text-dim);
+        background: rgba(92, 122, 107, 0.08);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 12px;
+        white-space: nowrap;
+      }
+      .chip b {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      /* CTA BUTTONS */
+      .btn {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        padding: 10px 18px;
+        border-radius: 3px;
+        white-space: nowrap;
+        transition: all 0.15s ease;
+      }
+      .btn-primary {
+        background: var(--green);
+        color: var(--bg);
+        border: 1px solid var(--green);
+        box-shadow: 0 0 18px rgba(52, 211, 153, 0.2);
+      }
+      .btn-primary:hover {
+        background: #59e79c;
+        border-color: #59e79c;
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--green-soft);
+        border: 1px solid rgba(92, 122, 107, 0.6);
+      }
+      .btn-ghost:hover {
+        border-color: rgba(92, 122, 107, 0.9);
+        background: rgba(92, 122, 107, 0.1);
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .cta-band {
+        margin-top: 36px;
+        padding: 24px 26px;
+        background: var(--bg-card);
+        border: 1px solid rgba(92, 122, 107, 0.4);
+        border-radius: 6px;
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.05);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      .cta-band p {
+        color: var(--text-dim);
+        font-size: 15px;
+        max-width: 46ch;
+      }
+      .cta-band p strong {
+        color: var(--text);
+        font-weight: 600;
       }
 
       /* SECTION LABEL */
@@ -293,12 +414,12 @@
       .section-tag {
         font-family: "JetBrains Mono", monospace;
         font-size: 13px;
-        color: var(--green);
+        color: var(--green-dim);
         margin-bottom: 8px;
       }
       .section-tag::before {
         content: "$ ";
-        color: var(--text-dim);
+        color: var(--green);
       }
       h2.section-title {
         font-size: 26px;
@@ -310,17 +431,19 @@
       /* ABOUT */
       .about-grid {
         display: grid;
-        grid-template-columns: 180px 1fr;
+        grid-template-columns: 210px 1fr;
         gap: 36px;
         align-items: start;
       }
       .about-photo {
         width: 100%;
-        aspect-ratio: 1/1;
+        aspect-ratio: 3/4;
         object-fit: cover;
+        object-position: 50% 22%;
         border-radius: 8px;
-        border: 1px solid var(--line);
-        filter: grayscale(15%);
+        border: 1px solid rgba(92, 122, 107, 0.4);
+        box-shadow: 0 0 18px rgba(52, 211, 153, 0.06);
+        filter: grayscale(12%) contrast(1.02);
       }
       .about-text p {
         color: var(--text-dim);
@@ -340,9 +463,17 @@
       }
       .skill-card {
         background: var(--bg-card);
-        border: 1px solid var(--line);
+        border: 1px solid rgba(92, 122, 107, 0.4);
         border-radius: 6px;
         padding: 18px 18px 16px;
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.05);
+        transition:
+          border-color 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+      .skill-card:hover {
+        border-color: rgba(52, 211, 153, 0.38);
+        box-shadow: 0 0 20px rgba(52, 211, 153, 0.09);
       }
       .skill-card h3 {
         font-family: "JetBrains Mono", monospace;
@@ -374,10 +505,27 @@
       /* PROJECTS */
       .project {
         background: var(--bg-card);
-        border: 1px solid var(--line);
+        border: 1px solid rgba(92, 122, 107, 0.4);
         border-radius: 6px;
         margin-bottom: 20px;
         overflow: hidden;
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.05);
+        transition:
+          transform 0.18s ease,
+          border-color 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+      .project:hover,
+      .project:focus-within {
+        transform: translateY(-3px);
+        border-color: rgba(52, 211, 153, 0.45);
+        box-shadow:
+          0 0 22px rgba(52, 211, 153, 0.1),
+          0 18px 40px -26px rgba(0, 0, 0, 0.75);
+      }
+      .project:hover .project-head,
+      .project:focus-within .project-head {
+        border-bottom-color: rgba(52, 211, 153, 0.3);
       }
       .project-head {
         display: flex;
@@ -393,7 +541,7 @@
         color: var(--text-dim);
       }
       .project-head .fname .ext {
-        color: var(--green);
+        color: var(--green-dim);
       }
       .project-body {
         padding: 22px 22px 24px;
@@ -408,6 +556,28 @@
         font-size: 15px;
         margin-bottom: 14px;
       }
+      .proj-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .role-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        background: rgba(92, 122, 107, 0.1);
+        border: 1px solid rgba(92, 122, 107, 0.32);
+        border-radius: 999px;
+        padding: 3px 10px;
+      }
+      .role-tag.no-code {
+        color: #9a8f6e;
+        background: rgba(201, 162, 39, 0.06);
+        border-color: rgba(201, 162, 39, 0.22);
+      }
       .stack {
         display: flex;
         flex-wrap: wrap;
@@ -417,10 +587,62 @@
       .stack span {
         font-family: "JetBrains Mono", monospace;
         font-size: 12px;
-        color: var(--green);
+        color: var(--tag-text);
         border: 1px solid var(--green-dim);
         padding: 3px 9px;
         border-radius: 3px;
+      }
+      .proj-figure {
+        margin: 4px 0 16px;
+        padding: 16px 14px 12px;
+        background: rgba(11, 15, 20, 0.55);
+        border: 1px solid rgba(92, 122, 107, 0.28);
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      .proj-figure svg {
+        display: block;
+        width: 100%;
+        min-width: 520px;
+        height: auto;
+      }
+      .proj-figure figcaption {
+        margin-top: 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11.5px;
+        color: var(--text-dim);
+        min-width: 520px;
+      }
+      .dg-box {
+        fill: var(--bg-raised);
+        stroke: var(--green-dim);
+        stroke-width: 1.2;
+      }
+      .dg-op {
+        fill: rgba(52, 211, 153, 0.06);
+        stroke: var(--green-soft);
+        stroke-width: 1.3;
+      }
+      .dg-t {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 700;
+        fill: var(--text);
+      }
+      .dg-s {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        fill: var(--text-dim);
+      }
+      .dg-e {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        fill: var(--green-soft);
+      }
+      .dg-line {
+        stroke: var(--green-dim);
+        stroke-width: 1.4;
+        fill: none;
       }
       .project-note {
         font-size: 13.5px;
@@ -438,36 +660,137 @@
         font-size: 12.5px;
       }
       .project-links a {
-        color: var(--green);
+        color: var(--green-dim);
         text-decoration: none;
       }
       .project-links a:hover {
         text-decoration: underline;
+        color: var(--green-soft);
+      }
+      .project.featured {
+        margin-bottom: 30px;
+        border-color: rgba(92, 122, 107, 0.65);
+        box-shadow:
+          0 0 26px rgba(52, 211, 153, 0.09),
+          0 24px 60px -34px rgba(0, 0, 0, 0.7);
+      }
+      .featured-flag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--amber);
+        background: rgba(201, 162, 39, 0.09);
+        border: 1px solid rgba(201, 162, 39, 0.32);
+        border-radius: 999px;
+        padding: 3px 10px;
+      }
+      .project.featured .project-body {
+        padding: 30px 28px 32px;
+      }
+      .project.featured .project-body h3 {
+        font-size: 25px;
+        margin-bottom: 12px;
+      }
+      .project.featured .project-body p {
+        font-size: 16px;
+      }
+      .project.featured:hover,
+      .project.featured:focus-within {
+        transform: translateY(-3px);
+        border-color: rgba(52, 211, 153, 0.5);
+        box-shadow:
+          0 0 32px rgba(52, 211, 153, 0.14),
+          0 24px 60px -30px rgba(0, 0, 0, 0.75);
       }
 
-      /* CERTS + EDU */
-      .cert-list {
+      /* CERTS — ROADMAP TIMELINE */
+      .roadmap {
         list-style: none;
+        position: relative;
+        margin-left: 7px;
+        padding-left: 26px;
       }
-      .cert-list li {
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 14px 0;
-        border-bottom: 1px solid var(--line);
-        font-size: 15px;
+      .roadmap::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 10px;
+        bottom: 18px;
+        width: 2px;
+        background: linear-gradient(
+          to bottom,
+          var(--green-dim) 0%,
+          var(--green-dim) 55%,
+          rgba(92, 122, 107, 0.25) 100%
+        );
       }
-      .cert-list li:last-child {
-        border-bottom: none;
+      .roadmap li {
+        position: relative;
+        padding: 0 0 22px 4px;
+        transition: transform 0.15s ease;
       }
-      .cert-list .cname {
+      .roadmap li:last-child {
+        padding-bottom: 0;
+      }
+      .roadmap li:hover {
+        transform: translateX(3px);
+      }
+      .roadmap .node {
+        position: absolute;
+        left: -32px;
+        top: 4px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 2px solid var(--green-dim);
+      }
+      .roadmap li.done .node {
+        background: var(--green-dim);
+        border-color: var(--green-dim);
+      }
+      .roadmap li.active .node {
+        border-color: var(--amber);
+        box-shadow: 0 0 0 4px rgba(201, 162, 39, 0.12);
+      }
+      .roadmap li.target .node {
+        border-style: dashed;
+        border-color: rgba(92, 122, 107, 0.6);
+      }
+      .roadmap .cname {
+        display: block;
         color: var(--text);
+        font-size: 15px;
+        margin-bottom: 5px;
       }
-      .cert-list .cmeta {
+      .roadmap li.target .cname {
         color: var(--text-dim);
+      }
+      .roadmap .cissuer {
+        display: block;
+        color: var(--text-dim);
+        font-size: 13.5px;
+        margin-bottom: 7px;
+      }
+      .roadmap .cmeta {
+        display: inline-block;
         font-family: "JetBrains Mono", monospace;
-        font-size: 12.5px;
+        font-size: 11.5px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
         white-space: nowrap;
+        border-radius: 999px;
+        padding: 3px 10px;
+        color: var(--text-dim);
+        background: rgba(92, 122, 107, 0.1);
+        border: 1px solid rgba(92, 122, 107, 0.3);
+      }
+      .roadmap li.active .cmeta {
+        color: var(--amber);
+        background: rgba(201, 162, 39, 0.09);
+        border-color: rgba(201, 162, 39, 0.32);
       }
       .edu-block {
         margin-top: 28px;
@@ -483,26 +806,182 @@
         color: var(--text-dim);
         font-size: 14.5px;
       }
+      .edu-dates {
+        margin-top: 6px;
+        font-size: 13.5px;
+      }
+      .edu-dates .mono {
+        color: var(--amber);
+        font-size: 13px;
+      }
 
       /* CONTACT */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+      @media (min-width: 900px) {
+        .contact-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
       .contact-term .term-body {
-        padding: 26px;
+        padding: 22px 20px 24px;
+        font-family: "Inter", sans-serif;
       }
-      .contact-line {
-        margin-bottom: 10px;
-        font-size: 14.5px;
-      }
-      .contact-line .k {
-        color: var(--text-dim);
-      }
-      .contact-line a {
-        color: var(--green);
-        text-decoration: none;
-      }
-      .contact-line a:hover {
-        text-decoration: underline;
+      .card-h {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 16px;
+        letter-spacing: 0.02em;
       }
 
+      /* Card 1 — direct channels */
+      .channel {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 0;
+        border-bottom: 1px dashed rgba(92, 122, 107, 0.22);
+      }
+      .channel:last-child {
+        border-bottom: none;
+      }
+      .channel svg {
+        flex: 0 0 auto;
+        width: 17px;
+        height: 17px;
+        color: var(--green-dim);
+      }
+      .channel .meta {
+        min-width: 0;
+        flex: 1 1 auto;
+      }
+      .channel .lbl {
+        display: block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: var(--text-dim);
+      }
+      .channel .val {
+        display: block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12.5px;
+        color: var(--text);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .channel-btn {
+        flex: 0 0 auto;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11.5px;
+        font-weight: 700;
+        text-decoration: none;
+        background: var(--green);
+        color: var(--bg);
+        padding: 6px 14px;
+        border-radius: 999px;
+        white-space: nowrap;
+        transition: background 0.15s ease;
+      }
+      .channel-btn:hover {
+        background: #59e79c;
+      }
+      .channel {
+        transition: border-color 0.15s ease;
+      }
+      .channel:hover svg {
+        color: var(--green-soft);
+      }
+
+      /* Card 2 — message form */
+      .field {
+        margin-bottom: 14px;
+      }
+      .field label {
+        display: block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: var(--text-dim);
+        margin-bottom: 6px;
+      }
+      .field input,
+      .field textarea {
+        width: 100%;
+        background: rgba(11, 15, 20, 0.7);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        padding: 10px 12px;
+        transition: border-color 0.15s ease;
+      }
+      .field textarea {
+        min-height: 104px;
+        resize: vertical;
+      }
+      .field input::placeholder,
+      .field textarea::placeholder {
+        color: #6b7a73;
+      }
+      .field input:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: var(--green-dim);
+      }
+      .send-btn {
+        width: 100%;
+        margin-top: 4px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        font-weight: 700;
+        background: var(--green);
+        color: var(--bg);
+        border: 1px solid var(--green);
+        border-radius: 4px;
+        padding: 12px 16px;
+        cursor: pointer;
+        box-shadow: 0 0 18px rgba(52, 211, 153, 0.18);
+        transition: background 0.15s ease;
+      }
+      .send-btn:hover:not(:disabled) {
+        background: #59e79c;
+      }
+      .send-btn:disabled {
+        opacity: 0.6;
+        cursor: progress;
+      }
+      .form-status {
+        margin-top: 12px;
+        min-height: 18px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12.5px;
+        color: var(--text-dim);
+      }
+      .form-status.ok {
+        color: var(--green-soft);
+      }
+      .form-status.err {
+        color: #e0806a;
+      }
+
+      .footer-cta {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding-top: 40px;
+      }
       footer {
         padding: 32px 0 48px;
         text-align: center;
@@ -515,12 +994,26 @@
         html {
           scroll-behavior: auto;
         }
+        .project:hover,
+        .project:focus-within,
+        .project.featured:hover,
+        .project.featured:focus-within {
+          transform: none;
+        }
         *,
         *::before,
         *::after {
           animation-duration: 0.01ms !important;
           animation-iteration-count: 1 !important;
           transition-duration: 0.01ms !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .channel .val {
+          white-space: normal;
+          overflow: visible;
+          overflow-wrap: anywhere;
         }
       }
 
@@ -563,10 +1056,20 @@
           grid-template-columns: 1fr;
         }
         .about-photo {
-          width: 120px;
+          width: 150px;
         }
         .skills-grid {
           grid-template-columns: 1fr;
+        }
+        .cta-band {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .project.featured .project-body {
+          padding: 22px 22px 24px;
+        }
+        .project.featured .project-body h3 {
+          font-size: 21px;
         }
       }
     </style>
@@ -590,7 +1093,7 @@
         </button>
         <div class="nav-mobile-hide" id="site-navigation">
           <ul class="nav-links" aria-label="Primary navigation">
-            <li><a href="#about">about</a></li>
+            <li><a href="#about" aria-current="page">about</a></li>
             <li><a href="#skills">skills</a></li>
             <li><a href="#projects">projects</a></li>
             <li><a href="#certs">certs</a></li>
@@ -632,10 +1135,21 @@
                 hardware, and practical security systems while preparing for a
                 cloud security internship.
               </p>
-              <div class="hero-links">
-                <a class="pill primary" href="mailto:yussufakram189@gmail.com"
-                  >yussufakram189@gmail.com</a
+              <div class="stat-chips">
+                <span class="chip"><b>6</b> projects built</span>
+                <span class="chip">AWS <b>SAA-C03</b> in progress</span>
+                <span class="chip"><b>2</b> security certs completed</span>
+              </div>
+              <div class="hero-links cta-row">
+                <a
+                  class="btn btn-primary"
+                  href="./resume.pdf"
+                  download="Yussuf_Akram_Ibrahim_Resume.pdf"
+                  >↓ Download CV</a
                 >
+                <a class="btn btn-ghost" href="#contact">Message me</a>
+              </div>
+              <div class="hero-social">
                 <a
                   class="pill"
                   href="https://github.com/YussufAkram15"
@@ -665,24 +1179,25 @@
               class="about-photo"
               src="./photo.jpeg"
               alt="Yussuf Akram Ibrahim"
+              width="544"
+              height="480"
+              loading="lazy"
+              decoding="async"
             />
             <div class="about-text">
               <p>
                 I'm heading into <strong>Level 3</strong> of my B.Sc. in
-                Computer Networks &amp; Cybersecurity at E-JUST, expecting to
-                graduate in <strong>June 2028</strong>. My focus has narrowed
-                toward <strong>cloud security</strong> — the intersection of the
-                systems knowledge I already have (cryptography, access control,
-                networking) and the AWS-specific skills I'm building now through
-                DEPI: IAM, VPC, CloudTrail, and infrastructure-as-code with
-                Terraform and boto3.
+                Computer Networks &amp; Cybersecurity at E-JUST, graduating
+                <strong>June 2028</strong>.
               </p>
               <p>
-                Outside coursework, I learn by building things that touch real
+                My focus has narrowed to <strong>cloud security</strong> — where
+                the systems knowledge I already have (cryptography, access
+                control, networking) meets the AWS skills I'm building through
+                DEPI: IAM, VPC, CloudTrail, and infrastructure-as-code with
+                Terraform and boto3. I learn by building things that touch real
                 security decisions — key management, physical access control,
-                tamper detection — rather than just reading about them, and I'm
-                working through CTF platforms like OverTheWire to sharpen the
-                offensive side.
+                tamper detection — rather than just reading about them.
               </p>
             </div>
           </div>
@@ -733,17 +1248,19 @@
           <div class="section-tag">ls -la projects/</div>
           <h2 class="section-title">Projects</h2>
 
-          <div class="project">
+          <div class="project featured">
             <div class="project-head">
               <span class="fname"
                 >secure_vault<span class="ext">.py</span></span
               >
-              <span class="fname"
-                >Operating Systems course + personal build</span
-              >
+              <span class="featured-flag">featured project</span>
             </div>
             <div class="project-body">
               <h3>Secure Vault — File Encryption Utility</h3>
+              <div class="proj-meta">
+                <span class="role-tag">team of 5</span>
+                <span class="role-tag">CLI + GUI: my own build</span>
+              </div>
               <p>
                 A hybrid encryption tool for encrypting and decrypting local
                 files, built to understand key management rather than just call
@@ -753,16 +1270,149 @@
                 attention to safe file-permission handling during read/write so
                 plaintext never lingers longer than it has to.
               </p>
+
+              <figure class="proj-figure">
+                <svg
+                  viewBox="0 0 660 244"
+                  role="img"
+                  aria-labelledby="vault-dg-title vault-dg-desc"
+                >
+                  <title id="vault-dg-title">
+                    Secure Vault hybrid encryption data flow
+                  </title>
+                  <desc id="vault-dg-desc">
+                    The plaintext file is encrypted with AES-256, producing
+                    ciphertext. The AES key is then wrapped with RSA, producing
+                    a wrapped key that is stored alongside the ciphertext.
+                  </desc>
+                  <defs>
+                    <marker
+                      id="dg-arrow"
+                      viewBox="0 0 10 10"
+                      refX="9"
+                      refY="5"
+                      markerWidth="7"
+                      markerHeight="7"
+                      orient="auto-start-reverse"
+                    >
+                      <path d="M0,0 L10,5 L0,10 z" fill="#4d6b5c" />
+                    </marker>
+                  </defs>
+
+                  <rect
+                    class="dg-box"
+                    x="10"
+                    y="34"
+                    width="134"
+                    height="46"
+                    rx="5"
+                  />
+                  <text class="dg-t" x="77" y="62" text-anchor="middle">
+                    file
+                  </text>
+
+                  <rect
+                    class="dg-op"
+                    x="216"
+                    y="24"
+                    width="132"
+                    height="66"
+                    rx="5"
+                  />
+                  <text class="dg-t" x="282" y="52" text-anchor="middle">
+                    AES-256
+                  </text>
+                  <text class="dg-s" x="282" y="70" text-anchor="middle">
+                    encrypt data
+                  </text>
+
+                  <rect
+                    class="dg-box"
+                    x="420"
+                    y="34"
+                    width="134"
+                    height="46"
+                    rx="5"
+                  />
+                  <text class="dg-t" x="487" y="62" text-anchor="middle">
+                    ciphertext
+                  </text>
+
+                  <rect
+                    class="dg-op"
+                    x="216"
+                    y="152"
+                    width="132"
+                    height="66"
+                    rx="5"
+                  />
+                  <text class="dg-t" x="282" y="180" text-anchor="middle">
+                    RSA
+                  </text>
+                  <text class="dg-s" x="282" y="198" text-anchor="middle">
+                    wrap AES key
+                  </text>
+
+                  <rect
+                    class="dg-box"
+                    x="420"
+                    y="162"
+                    width="160"
+                    height="46"
+                    rx="5"
+                  />
+                  <text class="dg-t" x="500" y="190" text-anchor="middle">
+                    wrapped key
+                  </text>
+
+                  <path
+                    class="dg-line"
+                    d="M144 57 H208"
+                    marker-end="url(#dg-arrow)"
+                  />
+                  <path
+                    class="dg-line"
+                    d="M348 57 H412"
+                    marker-end="url(#dg-arrow)"
+                  />
+                  <path
+                    class="dg-line"
+                    d="M282 90 V144"
+                    marker-end="url(#dg-arrow)"
+                  />
+                  <path
+                    class="dg-line"
+                    d="M348 185 H412"
+                    marker-end="url(#dg-arrow)"
+                  />
+
+                  <text class="dg-e" x="292" y="122">AES key</text>
+                  <text class="dg-s" x="10" y="26">input</text>
+                  <text class="dg-s" x="420" y="26">stored output</text>
+                  <text class="dg-s" x="420" y="154">stored output</text>
+                </svg>
+                <figcaption>
+                  Hybrid scheme — AES encrypts the file, RSA protects the AES
+                  key. Both outputs are stored together.
+                </figcaption>
+              </figure>
+
               <div class="stack">
                 <span>Python</span><span>AES / RSA</span
                 ><span>Web Crypto API</span><span>HTML / CSS / JS</span>
               </div>
               <p class="project-note">
-                Built with a 5-person team for Operating Systems; the CLI and
-                GUI shown here are my own follow-on build.
+                Operating Systems course + personal build — built with a
+                5-person team; the CLI and GUI shown here are my own follow-on
+                build.
               </p>
               <div class="project-links">
-                <a href="https://github.com/YussufAkram15/Red-Pill-Blue-Pill" target="_blank" rel="noopener">View source →</a>
+                <a
+                  href="https://github.com/YussufAkram15/Red-Pill-Blue-Pill"
+                  target="_blank"
+                  rel="noopener"
+                  >View source →</a
+                >
               </div>
             </div>
           </div>
@@ -774,6 +1424,9 @@
             </div>
             <div class="project-body">
               <h3>Smart Safe Hardware Retrofit</h3>
+              <div class="proj-meta">
+                <span class="role-tag no-code">code not public</span>
+              </div>
               <p>
                 Retrofitted a real commercial safe into a contactless
                 access-control system. An RC522 RFID module replaces the
@@ -798,6 +1451,11 @@
             </div>
             <div class="project-body">
               <h3>Student Management System</h3>
+              <div class="proj-meta">
+                <span class="role-tag">team of 5</span>
+                <span class="role-tag">my part: schema + Python backend</span>
+                <span class="role-tag no-code">code not public</span>
+              </div>
               <p>
                 A database-driven application built with a 5-member team to
                 track, update, and manage student records. Designed the
@@ -818,6 +1476,9 @@
             </div>
             <div class="project-body">
               <h3>Bazar — Egyptian Souvenirs E-Commerce</h3>
+              <div class="proj-meta">
+                <span class="role-tag">solo build</span>
+              </div>
               <p>
                 A full-stack e-commerce application with a responsive product
                 catalog, shopping cart, user authentication, order management,
@@ -828,19 +1489,34 @@
                 ><span>JavaScript</span>
               </div>
               <div class="project-links">
-                <a href="https://bazar-rho-umber.vercel.app/" target="_blank" rel="noopener">Live demo →</a>
-                <a href="https://github.com/YussufAkram15/Bazar" target="_blank" rel="noopener">View source →</a>
+                <a
+                  href="https://bazar-rho-umber.vercel.app/"
+                  target="_blank"
+                  rel="noopener"
+                  >Live demo →</a
+                >
+                <a
+                  href="https://github.com/YussufAkram15/Bazar"
+                  target="_blank"
+                  rel="noopener"
+                  >View source →</a
+                >
               </div>
             </div>
           </div>
 
           <div class="project">
             <div class="project-head">
-              <span class="fname">mips_pipeline<span class="ext">.v</span></span>
+              <span class="fname"
+                >mips_pipeline<span class="ext">.v</span></span
+              >
               <span class="fname">Computer architecture</span>
             </div>
             <div class="project-body">
               <h3>MIPS Pipeline Processor</h3>
+              <div class="proj-meta">
+                <span class="role-tag">solo build</span>
+              </div>
               <p>
                 An implementation of a MIPS microprocessor pipeline without
                 interlocked pipeline stages, documented with an architecture
@@ -851,18 +1527,28 @@
                 ><span>Digital Logic</span>
               </div>
               <div class="project-links">
-                <a href="https://github.com/YussufAkram15/MIPS-pipeline" target="_blank" rel="noopener">View source →</a>
+                <a
+                  href="https://github.com/YussufAkram15/MIPS-pipeline"
+                  target="_blank"
+                  rel="noopener"
+                  >View source →</a
+                >
               </div>
             </div>
           </div>
 
           <div class="project">
             <div class="project-head">
-              <span class="fname">banking_system<span class="ext">.java</span></span>
+              <span class="fname"
+                >banking_system<span class="ext">.java</span></span
+              >
               <span class="fname">Object-oriented programming</span>
             </div>
             <div class="project-body">
               <h3>Banking System GUI</h3>
+              <div class="proj-meta">
+                <span class="role-tag">team of 5</span>
+              </div>
               <p>
                 A Java banking application with account models, account types,
                 banking services, and a graphical user interface.
@@ -871,8 +1557,29 @@
                 <span>Java</span><span>OOP</span><span>GUI</span>
               </div>
               <div class="project-links">
-                <a href="https://github.com/YussufAkram15/banking-system" target="_blank" rel="noopener">View source →</a>
+                <a
+                  href="https://github.com/YussufAkram15/banking-system"
+                  target="_blank"
+                  rel="noopener"
+                  >View source →</a
+                >
               </div>
+            </div>
+          </div>
+
+          <div class="cta-band">
+            <p>
+              Looking for a <strong>cloud security internship</strong> — the
+              full write-up of this work is in the CV.
+            </p>
+            <div class="cta-row">
+              <a
+                class="btn btn-primary"
+                href="./resume.pdf"
+                download="Yussuf_Akram_Ibrahim_Resume.pdf"
+                >↓ Download CV</a
+              >
+              <a class="btn btn-ghost" href="#contact">Message me</a>
             </div>
           </div>
         </div>
@@ -880,28 +1587,47 @@
 
       <section id="certs">
         <div class="wrap">
-          <div class="section-tag">cat certifications.log</div>
+          <div class="section-tag">cat roadmap.log</div>
           <h2 class="section-title">Certifications &amp; Education</h2>
-          <ul class="cert-list">
-            <li>
+          <ul class="roadmap">
+            <li class="done">
+              <span class="node" aria-hidden="true"></span>
+              <span class="cname">Introduction to Cybersecurity</span>
+              <span class="cissuer">Cisco Networking Academy</span>
+              <span class="cmeta">completed</span>
+            </li>
+            <li class="done">
+              <span class="node" aria-hidden="true"></span>
+              <span class="cname">Google Cybersecurity Certificate</span>
+              <span class="cissuer">Google / Coursera</span>
+              <span class="cmeta">completed</span>
+            </li>
+            <li class="active">
+              <span class="node" aria-hidden="true"></span>
+              <span class="cname">AWS Track — Cloud Security &amp; IaC</span>
+              <span class="cissuer"
+                >DEPI — Digital Egypt Pioneers Initiative</span
+              >
+              <span class="cmeta">in progress</span>
+            </li>
+            <li class="target">
+              <span class="node" aria-hidden="true"></span>
               <span class="cname"
-                >DEPI — Digital Egypt Pioneers Initiative, AWS Track</span
-              ><span class="cmeta">in progress</span>
-            </li>
-            <li>
-              <span class="cname">Google Cybersecurity Certificate</span
-              ><span class="cmeta">completed</span>
-            </li>
-            <li>
-              <span class="cname">Cisco Introduction to Cybersecurity</span
-              ><span class="cmeta">completed</span>
+                >AWS Certified Solutions Architect — Associate (SAA-C03)</span
+              >
+              <span class="cissuer">Amazon Web Services</span>
+              <span class="cmeta">next up</span>
             </li>
           </ul>
           <div class="edu-block">
             <h3>B.Sc. Computer Networks &amp; Cybersecurity</h3>
             <p>
               Egypt-Japan University of Science and Technology (E-JUST) —
-              Alexandria, Egypt · Expected June 2028
+              Alexandria, Egypt
+            </p>
+            <p class="edu-dates">
+              <span class="mono">2024 – 2028</span> · currently Level 3 ·
+              expected graduation June 2028
             </p>
           </div>
         </div>
@@ -911,49 +1637,206 @@
         <div class="wrap">
           <div class="section-tag">./contact.sh</div>
           <h2 class="section-title">Contact</h2>
-          <div class="terminal contact-term">
-            <div class="term-bar">
-              <span class="dot r"></span><span class="dot y"></span
-              ><span class="dot g"></span>
-              <span class="term-title">yussuf@security: ~/contact</span>
+          <div class="contact-grid">
+            <!-- Card 1 — Direct Channels -->
+            <div class="terminal contact-term">
+              <div class="term-bar">
+                <span class="dot r"></span><span class="dot y"></span
+                ><span class="dot g"></span>
+                <span class="term-title">yussuf@security: ~/contact</span>
+              </div>
+              <div class="term-body">
+                <h3 class="card-h">Direct Channels</h3>
+
+                <div class="channel">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                  >
+                    <rect x="2.5" y="4.5" width="19" height="15" rx="2" />
+                    <path d="M3 6l9 6 9-6" />
+                  </svg>
+                  <span class="meta">
+                    <span class="lbl">Email</span>
+                    <span class="val">yussufakram189@gmail.com</span>
+                  </span>
+                  <a class="channel-btn" href="mailto:yussufakram189@gmail.com"
+                    >Email</a
+                  >
+                </div>
+
+                <div class="channel">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M9 19c-4.5 1.5-4.5-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.4.4-.5.9-.5 1.5V21"
+                    />
+                  </svg>
+                  <span class="meta">
+                    <span class="lbl">GitHub</span>
+                    <span class="val">github.com/YussufAkram15</span>
+                  </span>
+                  <a
+                    class="channel-btn"
+                    href="https://github.com/YussufAkram15"
+                    target="_blank"
+                    rel="noopener"
+                    >Follow</a
+                  >
+                </div>
+
+                <div class="channel">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                  >
+                    <rect x="2.5" y="2.5" width="19" height="19" rx="2" />
+                    <path d="M7 10.5V17M7 7v.01M11.5 17v-3.6c0-1.3.9-2.2 2-2.2s2 .9 2 2.2V17" />
+                  </svg>
+                  <span class="meta">
+                    <span class="lbl">LinkedIn</span>
+                    <span class="val">linkedin.com/in/yussuf-akram</span>
+                  </span>
+                  <a
+                    class="channel-btn"
+                    href="https://www.linkedin.com/in/yussuf-akram"
+                    target="_blank"
+                    rel="noopener"
+                    >Connect</a
+                  >
+                </div>
+
+                <div class="channel">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                  >
+                    <path d="M14 2.5H7a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7.5z" />
+                    <path d="M14 2.5v5h5M9 13h6M9 17h4" />
+                  </svg>
+                  <span class="meta">
+                    <span class="lbl">Resume</span>
+                    <span class="val">resume.pdf</span>
+                  </span>
+                  <a
+                    class="channel-btn"
+                    href="./resume.pdf"
+                    download="Yussuf_Akram_Ibrahim_Resume.pdf"
+                    >Download PDF</a
+                  >
+                </div>
+
+                <div class="channel">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 21.5s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z" />
+                    <circle cx="12" cy="10.5" r="2.5" />
+                  </svg>
+                  <span class="meta">
+                    <span class="lbl">Location</span>
+                    <span class="val">Alexandria, Egypt</span>
+                  </span>
+                </div>
+              </div>
             </div>
-            <div class="term-body">
-              <div class="contact-line">
-                <span class="k">email</span> →
-                <a href="mailto:yussufakram189@gmail.com"
-                  >yussufakram189@gmail.com</a
-                >
+
+            <!-- Card 2 — Send a Message -->
+            <div class="terminal contact-term">
+              <div class="term-bar">
+                <span class="dot r"></span><span class="dot y"></span
+                ><span class="dot g"></span>
+                <span class="term-title">$ ./send_message.sh</span>
               </div>
-              <div class="contact-line">
-                <span class="k">github</span> →
-                <a
-                  href="https://github.com/YussufAkram15"
-                  target="_blank"
-                  rel="noopener"
-                  >github.com/YussufAkram15</a
-                >
-              </div>
-              <div class="contact-line">
-                <span class="k">linkedin</span> →
-                <a
-                  href="https://www.linkedin.com/in/yussuf-akram"
-                  target="_blank"
-                  rel="noopener"
-                  >linkedin.com/in/yussuf-akram</a
-                >
-              </div>
-              <div class="contact-line">
-                <span class="k">resume</span> →
-                <a
-                  href="./resume.pdf"
-                  download="Yussuf_Akram_Ibrahim_Resume.pdf"
-                  >download PDF</a
-                >
+              <div class="term-body">
+                <h3 class="card-h">Send a Message</h3>
+                <form id="contact-form" novalidate>
+                  <div class="field">
+                    <label for="cf-name">Full Name</label>
+                    <input
+                      id="cf-name"
+                      name="name"
+                      type="text"
+                      required
+                      autocomplete="name"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="cf-email">Email Address</label>
+                    <input
+                      id="cf-email"
+                      name="email"
+                      type="email"
+                      required
+                      autocomplete="email"
+                      placeholder="you@company.com"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="cf-subject">Subject</label>
+                    <input
+                      id="cf-subject"
+                      name="subject"
+                      type="text"
+                      required
+                      placeholder="Internship opportunity / project collaboration"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="cf-message">Message</label>
+                    <textarea
+                      id="cf-message"
+                      name="message"
+                      required
+                      placeholder="Hi Yussuf, I&#39;d like to discuss..."
+                    ></textarea>
+                  </div>
+                  <button class="send-btn" type="submit">Send Message</button>
+                  <p
+                    class="form-status"
+                    id="form-status"
+                    role="status"
+                    aria-live="polite"
+                  ></p>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <div class="wrap">
+        <div class="footer-cta">
+          <a
+            class="btn btn-primary"
+            href="./resume.pdf"
+            download="Yussuf_Akram_Ibrahim_Resume.pdf"
+            >↓ Download CV</a
+          >
+          <a class="btn btn-ghost" href="mailto:yussufakram189@gmail.com"
+            >Message me</a
+          >
+        </div>
+      </div>
 
       <footer>built by Yussuf Akram Ibrahim · Alexandria, Egypt</footer>
     </main>
@@ -973,6 +1856,88 @@
           menuToggle.setAttribute("aria-expanded", "false");
           siteNavigation.classList.remove("is-open");
         });
+      });
+
+      /* ---------------------------------------------------------------
+         Contact form.
+         Paste the Formspree endpoint here once the form is created at
+         https://formspree.io (free tier, no backend). It looks like:
+           https://formspree.io/f/abcdwxyz
+         While this is empty the form falls back to opening a prefilled
+         mailto: draft, so it still works.
+      ---------------------------------------------------------------- */
+      const FORMSPREE_ENDPOINT = "";
+
+      const contactForm = document.querySelector("#contact-form");
+      const formStatus = document.querySelector("#form-status");
+
+      function setStatus(text, kind) {
+        formStatus.textContent = text;
+        formStatus.className = "form-status" + (kind ? " " + kind : "");
+      }
+
+      contactForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const data = {
+          name: contactForm.name.value.trim(),
+          email: contactForm.email.value.trim(),
+          subject: contactForm.subject.value.trim(),
+          message: contactForm.message.value.trim(),
+        };
+
+        if (!data.name || !data.email || !data.subject || !data.message) {
+          setStatus("Fill in every field before sending.", "err");
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+          setStatus("That email address doesn't look valid.", "err");
+          return;
+        }
+
+        if (!FORMSPREE_ENDPOINT) {
+          const body =
+            data.message + "\n\n— " + data.name + " <" + data.email + ">";
+          window.location.href =
+            "mailto:yussufakram189@gmail.com?subject=" +
+            encodeURIComponent(data.subject) +
+            "&body=" +
+            encodeURIComponent(body);
+          setStatus("Opening your email client…");
+          return;
+        }
+
+        const submitButton = contactForm.querySelector(".send-btn");
+        submitButton.disabled = true;
+        setStatus("Sending…");
+
+        try {
+          const response = await fetch(FORMSPREE_ENDPOINT, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            contactForm.reset();
+            setStatus("Message sent — I'll get back to you.", "ok");
+          } else {
+            setStatus(
+              "Couldn't send. Email yussufakram189@gmail.com directly.",
+              "err",
+            );
+          }
+        } catch (error) {
+          setStatus(
+            "Network error. Email yussufakram189@gmail.com directly.",
+            "err",
+          );
+        } finally {
+          submitButton.disabled = false;
+        }
       });
     </script>
   </body>
