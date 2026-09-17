@@ -172,10 +172,35 @@
         transition: color 0.15s ease;
       }
       .nav-links a:hover,
-      .nav-links a[aria-current="page"] {
-        color: var(--green-dim);
+      .nav-ind {
+        position: absolute;
+        bottom: -19px;
+        left: 0;
+        height: 2px;
+        width: 0;
+        border-radius: 2px;
+        background: var(--green);
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.55);
+        opacity: 0;
+        transform: translateX(0);
+        transition:
+          transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+          width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.2s ease;
+        pointer-events: none;
       }
-      .nav-links a[aria-current="page"] {
+      nav.scrolled {
+        background: rgba(11, 15, 20, 0.88);
+        backdrop-filter: blur(10px);
+        border-bottom-color: rgba(92, 122, 107, 0.45);
+        box-shadow: 0 8px 28px -22px rgba(0, 0, 0, 0.9);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .nav-ind {
+          transition: opacity 0.2s ease;
+        }
+      }
+      .nav-links a[aria-current] {
         color: var(--green-soft);
       }
       .cv-btn {
@@ -197,6 +222,12 @@
         display: flex;
         align-items: center;
         gap: 26px;
+        position: relative;
+      }
+      @media (max-width: 720px) {
+        .nav-ind {
+          display: none;
+        }
       }
       .menu-toggle {
         display: none;
@@ -301,6 +332,62 @@
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
+      }
+      .hero-work {
+        margin: 22px 0 20px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+      .hero-work-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 9px;
+      }
+      .hero-work-label::before {
+        content: "$ ";
+        color: var(--green);
+      }
+      .hero-work-row {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        padding: 7px 9px;
+        margin-left: -9px;
+        border-radius: 5px;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition:
+          background 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .hero-work-row:hover,
+      .hero-work-row:focus-visible {
+        background: rgba(92, 122, 107, 0.09);
+        border-color: rgba(92, 122, 107, 0.3);
+        outline: none;
+      }
+      .hw-name {
+        flex: 0 0 auto;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        color: var(--green-soft);
+      }
+      .hw-desc {
+        color: var(--text-dim);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .hero-work-row:hover .hw-desc {
+        color: var(--text);
+      }
+      @media (max-width: 560px) {
+        .hero-work-row {
+          flex-direction: column;
+          gap: 3px;
+        }
       }
       .hero-social {
         margin-top: 14px;
@@ -821,6 +908,124 @@
         border-color: var(--green);
         color: var(--green);
       }
+      /* OTHER PROJECTS — compact grid behind one toggle */
+      .more-projects {
+        margin-top: 4px;
+      }
+      .more-projects > summary {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        width: fit-content;
+        list-style: none;
+        cursor: pointer;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12.5px;
+        letter-spacing: 0.04em;
+        color: var(--text-dim);
+        background: rgba(92, 122, 107, 0.08);
+        border: 1px solid rgba(92, 122, 107, 0.34);
+        border-radius: 6px;
+        padding: 10px 16px;
+        transition:
+          border-color 0.16s ease,
+          color 0.16s ease;
+      }
+      .more-projects > summary::-webkit-details-marker {
+        display: none;
+      }
+      .more-projects > summary::before {
+        content: "$";
+        color: var(--green);
+      }
+      .more-projects > summary::after {
+        content: "▸";
+        color: var(--green-soft);
+        transition: transform 0.16s ease;
+      }
+      .more-projects[open] > summary::after {
+        transform: rotate(90deg);
+      }
+      .more-projects > summary:hover,
+      .more-projects > summary:focus-visible {
+        border-color: rgba(52, 211, 153, 0.5);
+        color: var(--text);
+        outline: none;
+      }
+      .mini-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 16px;
+      }
+      @media (min-width: 760px) {
+        .mini-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .mini {
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-card);
+        border: 1px solid rgba(92, 122, 107, 0.4);
+        border-radius: 6px;
+        padding: 16px 16px 14px;
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.05);
+        transition:
+          transform 0.18s ease,
+          border-color 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+      .mini:hover,
+      .mini:focus-within {
+        transform: translateY(-3px);
+        border-color: rgba(52, 211, 153, 0.45);
+        box-shadow:
+          0 0 22px rgba(52, 211, 153, 0.1),
+          0 18px 40px -26px rgba(0, 0, 0, 0.75);
+      }
+      .mini-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 11px;
+      }
+      .mini-head .fname {
+        font-size: 12px;
+      }
+      .mini h4 {
+        font-size: 16px;
+        color: var(--text);
+        margin-bottom: 8px;
+        line-height: 1.35;
+      }
+      .mini p {
+        color: var(--text-dim);
+        font-size: 14px;
+        line-height: 1.65;
+        margin-bottom: 12px;
+        flex: 1;
+      }
+      .mini .stack {
+        margin-bottom: 12px;
+      }
+      .mini .project-links {
+        margin-top: auto;
+      }
+      .no-link {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11.5px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #9a8f6e;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .mini:hover,
+        .mini:focus-within {
+          transform: none;
+        }
+      }
       .project-note {
         font-size: 13.5px;
         color: var(--text-dim);
@@ -963,6 +1168,28 @@
         color: var(--text-dim);
         background: rgba(92, 122, 107, 0.1);
         border: 1px solid rgba(92, 122, 107, 0.3);
+      }
+      .roadmap .cissuer a {
+        color: var(--green-dim);
+        text-decoration: none;
+        border-bottom: 1px dotted rgba(92, 122, 107, 0.5);
+      }
+      .roadmap .cissuer a:hover {
+        color: var(--green-soft);
+        border-bottom-color: var(--green-soft);
+      }
+      .also-done {
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--text-dim);
+        font-size: 13.5px;
+        line-height: 1.7;
+      }
+      .also-done span {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12.5px;
+        color: var(--text);
       }
       .roadmap li.active .cmeta {
         color: var(--amber);
@@ -1285,7 +1512,7 @@
         </button>
         <div class="nav-mobile-hide" id="site-navigation">
           <ul class="nav-links" aria-label="Primary navigation">
-            <li><a href="#about" aria-current="page">about</a></li>
+            <li><a href="#about">about</a></li>
             <li><a href="#skills">skills</a></li>
             <li><a href="#projects">projects</a></li>
             <li><a href="#certs">certs</a></li>
@@ -1340,6 +1567,22 @@
                   >↓ Download CV</a
                 >
                 <a class="btn btn-ghost" href="#contact">Message me</a>
+              </div>
+              <div class="hero-work">
+                <div class="hero-work-label">ls --featured</div>
+                <a class="hero-work-row" href="#projects">
+                  <span class="hw-name">secure_vault/</span>
+                  <span class="hw-desc"
+                    >Hybrid AES-256 + RSA file encryption, CLI and GUI</span
+                  >
+                </a>
+                <a class="hero-work-row" href="#projects">
+                  <span class="hw-name">smart_safe/</span>
+                  <span class="hw-desc"
+                    >RFID access control and tamper detection on a real
+                    safe</span
+                  >
+                </a>
               </div>
               <div class="hero-social">
                 <a
@@ -1666,7 +1909,8 @@
               </div>
 
               <div class="media-block">
-                <div class="media-label">play demo.mp4</div>
+                <details class="media-more demo-toggle">
+                  <summary>play demo.mp4 &mdash; 36s</summary>
                 <video
                   class="demo-video"
                   controls
@@ -1679,6 +1923,7 @@
                   <source src="./assets/smart-safe/demo.mp4" type="video/mp4" />
                   Your browser cannot play this video.
                 </video>
+                </details>
               </div>
 
               <div class="stack">
@@ -1688,130 +1933,85 @@
             </div>
           </div>
 
-          <div class="project">
-            <div class="project-head">
-              <span class="fname"
-                >student_mgmt_system<span class="ext">.sql</span></span
-              >
-              <span class="fname">Advanced Programming</span>
-            </div>
-            <div class="project-body">
-              <h3>Student Management System</h3>
-              <div class="proj-meta">
-                <span class="role-tag">team of 5</span>
-                <span class="role-tag">my part: schema + Python backend</span>
-                <span class="role-tag no-code">code not public</span>
-              </div>
-              <p>
-                A database-driven application built with a 5-member team to
-                track, update, and manage student records. Designed the
-                relational schema for data integrity and fast retrieval, and
-                built the Python backend handling CRUD operations with input
-                validation.
-              </p>
-              <div class="stack">
-                <span>Python</span><span>MySQL</span><span>CRUD</span>
-              </div>
-            </div>
-          </div>
+          <details class="more-projects">
+            <summary>ls projects/ &mdash; 4 more</summary>
+            <div class="mini-grid">
+              <article class="mini">
+                <div class="mini-head">
+                  <span class="fname">bazar<span class="ext">.py</span></span>
+                  <span class="role-tag">solo build</span>
+                </div>
+                <h4>Bazar — Egyptian Souvenirs E-Commerce</h4>
+                <p>
+                  Full-stack shop — product catalog, cart, user auth and order
+                  management on a Flask API backed by SQLite.
+                </p>
+                <div class="stack">
+                  <span>Python</span><span>Flask</span><span>SQLite</span
+                  ><span>JavaScript</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://bazar-rho-umber.vercel.app/" target="_blank" rel="noopener">Live demo →</a>
+                  <a href="https://github.com/YussufAkram15/Bazar" target="_blank" rel="noopener">View source →</a>
+                </div>
+              </article>
 
-          <div class="project">
-            <div class="project-head">
-              <span class="fname">bazar<span class="ext">.py</span></span>
-              <span class="fname">Full-stack web application</span>
-            </div>
-            <div class="project-body">
-              <h3>Bazar — Egyptian Souvenirs E-Commerce</h3>
-              <div class="proj-meta">
-                <span class="role-tag">solo build</span>
-              </div>
-              <p>
-                A full-stack e-commerce application with a responsive product
-                catalog, shopping cart, user authentication, order management,
-                and a Flask API backed by SQLite.
-              </p>
-              <div class="stack">
-                <span>Python</span><span>Flask</span><span>SQLite</span
-                ><span>JavaScript</span>
-              </div>
-              <div class="project-links">
-                <a
-                  href="https://bazar-rho-umber.vercel.app/"
-                  target="_blank"
-                  rel="noopener"
-                  >Live demo →</a
-                >
-                <a
-                  href="https://github.com/YussufAkram15/Bazar"
-                  target="_blank"
-                  rel="noopener"
-                  >View source →</a
-                >
-              </div>
-            </div>
-          </div>
+              <article class="mini">
+                <div class="mini-head">
+                  <span class="fname">mips_pipeline<span class="ext">.v</span></span>
+                  <span class="role-tag">solo build</span>
+                </div>
+                <h4>MIPS Pipeline Processor</h4>
+                <p>
+                  A MIPS microprocessor pipeline without interlocked stages,
+                  documented with an architecture diagram and project files.
+                </p>
+                <div class="stack">
+                  <span>MIPS</span><span>Processor Design</span
+                  ><span>Digital Logic</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/YussufAkram15/MIPS-pipeline" target="_blank" rel="noopener">View source →</a>
+                </div>
+              </article>
 
-          <div class="project">
-            <div class="project-head">
-              <span class="fname"
-                >mips_pipeline<span class="ext">.v</span></span
-              >
-              <span class="fname">Computer architecture</span>
-            </div>
-            <div class="project-body">
-              <h3>MIPS Pipeline Processor</h3>
-              <div class="proj-meta">
-                <span class="role-tag">solo build</span>
-              </div>
-              <p>
-                An implementation of a MIPS microprocessor pipeline without
-                interlocked pipeline stages, documented with an architecture
-                diagram and processor project files.
-              </p>
-              <div class="stack">
-                <span>MIPS</span><span>Processor Design</span
-                ><span>Digital Logic</span>
-              </div>
-              <div class="project-links">
-                <a
-                  href="https://github.com/YussufAkram15/MIPS-pipeline"
-                  target="_blank"
-                  rel="noopener"
-                  >View source →</a
-                >
-              </div>
-            </div>
-          </div>
+              <article class="mini">
+                <div class="mini-head">
+                  <span class="fname">banking_system<span class="ext">.java</span></span>
+                  <span class="role-tag">team of 5</span>
+                </div>
+                <h4>Banking System GUI</h4>
+                <p>
+                  A Java banking application with account models, account types,
+                  banking services and a desktop GUI.
+                </p>
+                <div class="stack">
+                  <span>Java</span><span>OOP</span><span>GUI</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/YussufAkram15/banking-system" target="_blank" rel="noopener">View source →</a>
+                </div>
+              </article>
 
-          <div class="project">
-            <div class="project-head">
-              <span class="fname"
-                >banking_system<span class="ext">.java</span></span
-              >
-              <span class="fname">Object-oriented programming</span>
+              <article class="mini">
+                <div class="mini-head">
+                  <span class="fname">student_mgmt_system<span class="ext">.sql</span></span>
+                  <span class="role-tag">team of 5</span>
+                </div>
+                <h4>Student Management System</h4>
+                <p>
+                  Database-driven records system. Designed the relational schema
+                  and built the Python backend — CRUD with input validation.
+                </p>
+                <div class="stack">
+                  <span>Python</span><span>MySQL</span><span>CRUD</span>
+                </div>
+                <div class="project-links">
+                  <span class="no-link">code not public</span>
+                </div>
+              </article>
             </div>
-            <div class="project-body">
-              <h3>Banking System GUI</h3>
-              <div class="proj-meta">
-                <span class="role-tag">team of 5</span>
-              </div>
-              <p>
-                A Java banking application with account models, account types,
-                banking services, and a graphical user interface.
-              </p>
-              <div class="stack">
-                <span>Java</span><span>OOP</span><span>GUI</span>
-              </div>
-              <div class="project-links">
-                <a
-                  href="https://github.com/YussufAkram15/banking-system"
-                  target="_blank"
-                  rel="noopener"
-                  >View source →</a
-                >
-              </div>
-            </div>
-          </div>
+          </details>
 
           <div class="cta-band">
             <p>
@@ -1838,15 +2038,24 @@
           <ul class="roadmap">
             <li class="done">
               <span class="node" aria-hidden="true"></span>
-              <span class="cname">Introduction to Cybersecurity</span>
-              <span class="cissuer">Cisco Networking Academy</span>
-              <span class="cmeta">completed</span>
+              <span class="cname">Foundations of Cybersecurity</span>
+              <span class="cissuer"
+                >Google · Coursera — course 1 of the Google Cybersecurity
+                Certificate ·
+                <a
+                  href="https://coursera.org/verify/Z6YM04Q913KK"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >verify</a
+                ></span
+              >
+              <span class="cmeta">Nov 2025</span>
             </li>
             <li class="done">
               <span class="node" aria-hidden="true"></span>
-              <span class="cname">Google Cybersecurity Certificate</span>
-              <span class="cissuer">Google / Coursera</span>
-              <span class="cmeta">completed</span>
+              <span class="cname">Introduction to Cybersecurity</span>
+              <span class="cissuer">Cisco Networking Academy</span>
+              <span class="cmeta">Jul 2026</span>
             </li>
             <li class="active">
               <span class="node" aria-hidden="true"></span>
@@ -1865,6 +2074,14 @@
               <span class="cmeta">next up</span>
             </li>
           </ul>
+
+          <p class="also-done">
+            Also completed:
+            <span>Introduction to Python for Developers</span> and
+            <span>Introduction to Python</span> (DataCamp, Feb 2026 and Jan
+            2025), and attended <span>Build with AI — Masr Edition</span>.
+          </p>
+
           <div class="edu-block">
             <h3>B.Sc. Computer Networks &amp; Cybersecurity</h3>
             <p>
@@ -2118,6 +2335,103 @@
          While this is empty the form falls back to opening a prefilled
          mailto: draft, so it still works.
       ---------------------------------------------------------------- */
+      /* ---- scrollspy: highlight the section you are standing in ---- */
+      (function () {
+        const nav = document.querySelector("nav");
+        const wrap = document.querySelector(".nav-mobile-hide");
+        const links = Array.prototype.slice.call(
+          document.querySelectorAll(".nav-links a")
+        );
+        if (!nav || !wrap || !links.length) return;
+
+        const sections = links
+          .map(function (a) {
+            return document.querySelector(a.getAttribute("href"));
+          })
+          .filter(Boolean);
+
+        const ind = document.createElement("span");
+        ind.className = "nav-ind";
+        ind.setAttribute("aria-hidden", "true");
+        wrap.appendChild(ind);
+
+        let current = null;
+
+        function moveIndicator(link) {
+          if (!link) {
+            ind.style.opacity = "0";
+            return;
+          }
+          const l = link.getBoundingClientRect();
+          const w = wrap.getBoundingClientRect();
+          ind.style.width = l.width + "px";
+          ind.style.transform = "translateX(" + (l.left - w.left) + "px)";
+          ind.style.opacity = "1";
+        }
+
+        // cached so the scroll handler never forces a layout
+        let offsets = [];
+        let navH = 0;
+        let docH = 0;
+        function measure() {
+          navH = nav.offsetHeight;
+          docH = document.documentElement.scrollHeight;
+          offsets = sections.map(function (sec) {
+            return sec.offsetTop;
+          });
+        }
+
+        function update() {
+          nav.classList.toggle("scrolled", window.scrollY > 12);
+
+          const line = window.scrollY + navH + 90;
+          let active = null;
+          offsets.forEach(function (top, i) {
+            if (top <= line) active = sections[i];
+          });
+
+          // last section can be too short to reach the line — claim it at the bottom
+          const atBottom = window.innerHeight + window.scrollY >= docH - 4;
+          if (atBottom) active = sections[sections.length - 1];
+
+          // still in the hero: nothing is current
+          if (window.scrollY < 40) active = null;
+
+          const link = active ? links[sections.indexOf(active)] : null;
+          if (link !== current) {
+            links.forEach(function (a) {
+              a.removeAttribute("aria-current");
+            });
+            if (link) link.setAttribute("aria-current", "true");
+            current = link;
+            moveIndicator(link);
+          }
+        }
+
+        window.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", function () {
+          measure();
+          update();
+          moveIndicator(current);
+        });
+
+        // lazy images and the collapsible sections change section offsets
+        if (typeof ResizeObserver === "function") {
+          let settled = null;
+          const ro = new ResizeObserver(function () {
+            clearTimeout(settled);
+            settled = setTimeout(function () {
+              measure();
+              update();
+            }, 60);
+          });
+          ro.observe(document.body);
+        }
+
+        measure();
+        update();
+      })();
+
       /* ---- image lightbox ---- */
       (function () {
         const box = document.getElementById("lightbox");
