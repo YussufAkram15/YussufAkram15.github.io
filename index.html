@@ -53,9 +53,14 @@
     />
     <style>
       :root {
-        --bg: #0b0f14;
-        --bg-raised: #101a17;
-        --bg-card: #0f1512;
+        /* elevation ladder — each step ~+5% luminance, the way depth reads on dark */
+        --surface-0: #0b0f14;
+        --surface-1: #0d1317;
+        --surface-2: #111a1d;
+        --surface-3: #17222a;
+        --bg: var(--surface-0);
+        --bg-raised: var(--surface-3);
+        --bg-card: var(--surface-2);
         --line: rgba(92, 122, 107, 0.35);
         --text: #dfeae3;
         --text-dim: #8f9d96;
@@ -493,10 +498,28 @@
 
       /* SECTION LABEL */
       section {
-        padding: 64px 0;
+        position: relative;
+        padding: 76px 0;
       }
-      section + section {
-        border-top: 1px solid var(--line);
+      /* alternate the ground so consecutive sections stop reading as one slab */
+      section:nth-of-type(even) {
+        background: var(--surface-1);
+      }
+      section + section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(92, 122, 107, 0.55) 18%,
+          rgba(52, 211, 153, 0.35) 50%,
+          rgba(92, 122, 107, 0.55) 82%,
+          transparent
+        );
       }
       .section-tag {
         font-family: "JetBrains Mono", monospace;
@@ -806,6 +829,32 @@
         stroke-width: 1.4;
         fill: none;
       }
+      /* SCROLL REVEALS — only added once JS confirms support, so a
+         no-JS visitor never gets stuck with invisible content */
+      .js-reveal [data-reveal] {
+        opacity: 0;
+        transform: translateY(14px);
+        will-change: opacity, transform;
+      }
+      .js-reveal [data-reveal].is-in {
+        opacity: 1;
+        transform: none;
+        transition:
+          opacity 480ms cubic-bezier(0.22, 0.61, 0.36, 1),
+          transform 480ms cubic-bezier(0.22, 0.61, 0.36, 1);
+        transition-delay: var(--reveal-delay, 0ms);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        /* a real branch, not a shorter duration: no movement at all */
+        .js-reveal [data-reveal],
+        .js-reveal [data-reveal].is-in {
+          opacity: 1;
+          transform: none;
+          transition: none;
+          will-change: auto;
+        }
+      }
+
       /* PROJECT MEDIA */
       .media-block {
         margin: 4px 0 16px;
@@ -2705,6 +2754,87 @@
          While this is empty the form falls back to opening a prefilled
          mailto: draft, so it still works.
       ---------------------------------------------------------------- */
+      /* ---- scroll reveals ---- */
+      (function () {
+        if (!("IntersectionObserver" in window)) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        const targets = document.querySelectorAll(
+          "section .section-tag, section .section-title, .skill-card, .project, .mini, .role, .roadmap li, .also-done, .edu-block, .contact-term, .cta-band"
+        );
+        if (!targets.length) return;
+
+        // only hide things once we know we can reveal them again
+        document.documentElement.classList.add("js-reveal");
+
+        targets.forEach(function (el) {
+          el.setAttribute("data-reveal", "");
+        });
+
+        // stagger members of a group so grids cascade instead of popping at once
+        [".skills-grid", ".mini-grid", ".roadmap", ".contact-grid"].forEach(
+          function (sel) {
+            document.querySelectorAll(sel).forEach(function (group) {
+              Array.prototype.forEach.call(group.children, function (child, i) {
+                if (child.hasAttribute("data-reveal")) {
+                  child.style.setProperty("--reveal-delay", i * 70 + "ms");
+                }
+              });
+            });
+          }
+        );
+
+        const io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-in");
+              io.unobserve(entry.target); // reveal once, then stop watching
+            });
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+        );
+
+        targets.forEach(function (el) {
+          io.observe(el);
+        });
+
+        function revealIfInView() {
+          targets.forEach(function (el) {
+            if (el.classList.contains("is-in")) return;
+            const r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight && r.bottom > 0) {
+              el.classList.add("is-in");
+              io.unobserve(el);
+            }
+          });
+        }
+
+        // anything already on screen must not wait for a scroll — run it now,
+        // synchronously, rather than inside a frame callback that may never fire
+        revealIfInView();
+        window.addEventListener("load", revealIfInView);
+
+        // Backup trigger. If the observer fires normally this finds nothing left
+        // to do; if it never fires, scrolling still reveals content. Cheap: it
+        // only measures elements that are still hidden.
+        let pending = targets.length;
+        function onScroll() {
+          revealIfInView();
+          pending = document.querySelectorAll("[data-reveal]:not(.is-in)").length;
+          if (!pending) window.removeEventListener("scroll", onScroll);
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        // Content inside a closed <details> has no box, so it never intersects
+        // and would open at opacity 0. Reveal it the moment the panel expands.
+        document.querySelectorAll("details").forEach(function (d) {
+          d.addEventListener("toggle", function () {
+            if (d.open) revealIfInView();
+          });
+        });
+      })();
+
       /* ---- scrollspy: highlight the section you are standing in ---- */
       (function () {
         const nav = document.querySelector("nav");
