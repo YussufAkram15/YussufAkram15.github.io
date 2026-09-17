@@ -959,6 +959,29 @@
         line-height: 1.7;
         margin-bottom: 14px;
       }
+      .role-points {
+        list-style: none;
+        margin-bottom: 16px;
+      }
+      .role-points li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 9px;
+        color: var(--text-dim);
+        font-size: 14.5px;
+        line-height: 1.7;
+      }
+      .role-points li::before {
+        content: "▸";
+        position: absolute;
+        left: 2px;
+        top: 0;
+        color: var(--green-dim);
+      }
+      .role-points strong {
+        color: var(--text);
+        font-weight: 600;
+      }
 
       /* OTHER PROJECTS — compact grid behind one toggle */
       .more-projects {
@@ -1793,6 +1816,7 @@
               <h3>AWS Machine Learning Engineer — AI &amp; Data Science track</h3>
               <div class="proj-meta">
                 <span class="role-tag">current</span>
+                <span class="role-tag">team lead — 5 people</span>
                 <span class="role-tag">Ministry of Communications &amp; IT programme</span>
               </div>
               <p>
@@ -1802,9 +1826,22 @@
                 IAM, storage and networking primitives that cloud security work
                 is built on.
               </p>
+              <ul class="role-points">
+                <li>
+                  Working through the <strong>AWS Academy</strong> curriculum —
+                  Cloud Foundations and Data Engineering, with further courses
+                  to follow — including hands-on labs on core services such as
+                  EBS.
+                </li>
+                <li>
+                  <strong>Leading a five-person capstone team</strong>, the
+                  group project required to complete the programme. Team formed;
+                  currently scoping the problem before build.
+                </li>
+              </ul>
               <div class="stack">
-                <span>AWS</span><span>Python</span><span>Machine Learning</span
-                ><span>Data Science</span>
+                <span>AWS</span><span>Python</span><span>Data Engineering</span
+                ><span>Machine Learning</span><span>Team Leadership</span>
               </div>
             </div>
           </article>
